@@ -8,9 +8,9 @@ namespace billing.Data.Repositories.Admin.Logger
 {
     public class AppLoggerRepo : IAppLoggerRepo
     {
-        private readonly LAppContext _appContext;
+        private readonly BillingAppContext _appContext;
 
-        public AppLoggerRepo(LAppContext appContext)
+        public AppLoggerRepo(BillingAppContext appContext)
         {
             _appContext = appContext;
         }

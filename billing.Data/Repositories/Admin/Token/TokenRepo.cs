@@ -6,8 +6,8 @@ namespace billing.Data.Repositories.Admin.Token
 {
     public class TokenRepo : RepositoryBase<AdminUserRefreshToken>, ITokenRepo
     {
-        private readonly LAppContext _appContext;
-        public TokenRepo(LAppContext appContext) : base(appContext)
+        private readonly BillingAppContext _appContext;
+        public TokenRepo(BillingAppContext appContext) : base(appContext)
         {
             _appContext = appContext;
         }

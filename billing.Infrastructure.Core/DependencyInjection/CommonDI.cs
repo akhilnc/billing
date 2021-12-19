@@ -1,4 +1,6 @@
-﻿using billing.Infrastructure.Common.Logger;
+﻿using billing.Infrastructure.Common.HttpContext;
+using billing.Infrastructure.Common.Logger;
+using billing.Infrastructure.Common.Logger.HttpContextHttpContext;
 using billing.Infrastructure.Common.Utlilities.TokenUserClaims;
 using billing.Infrastructure.Security.Cryptography;
 using billing.Infrastructure.Security.Hashing;
@@ -16,9 +18,8 @@ namespace billing.Infrastructure.Core.DependencyInjection
             services.AddScoped<IHash, Hash>();
             services.AddScoped<IPassword, Password>();
             services.AddScoped<IToken, Token>();
-
+            services.AddScoped<IRequestContext, RequestContext>();
             services.AddScoped<ITokenUserClaims, TokenUserClaims>();
-
             services.AddScoped<IAppLogger, AppLogger>();
         }
     }

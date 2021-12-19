@@ -16,5 +16,7 @@ namespace billing.Service.Masters.User
         Task<Envelope> Update(UserDTO input);
         Task<Envelope> Delete(string uId);
         Task<Envelope> CheckDuplication(DuplicateValidation input);
+        Task<(bool, int, string)> IsUserActive(string userId, string userRole);
+
     }
 }
