@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using billing.Data;
 using billing.Data.DTOs.Masters;
 using billing.Data.Generics;
 using billing.Data.Generics.General;
@@ -12,7 +13,6 @@ using billing.Infrastructure.Common.Utlilities.TokenUserClaims;
 using billing.Infrastructure.Security.Hashing;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace billing.Service.Masters.User
@@ -109,6 +109,29 @@ namespace billing.Service.Masters.User
             }
         }
 
+        /// <summary>
+        /// Check whether the user is active or not
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task<(bool, int, string)> IsUserActive(string userId, string userRole)
+        {
+            var user = await _repo.GetUserById(userId);
+
+            if (user == null)
+            {
+                return (false, ApplicationConstants.ForceLogoutCodeForInactiveUser, ApplicationConstants.ForceLogoutDeletedUserMessage);
+            }
+
+            if (!user.IsActive)
+            {
+                return (false, ApplicationConstants.ForceLogoutCodeForInactiveUser, ApplicationConstants.ForceLogoutInactiveUserMessage);
+            }
+
+            //var role = GetApplicationRole(user);
+            return default;
+                /*(role == userRole, ApplicationConstants.ForceLogoutCodeForRoleChangedUser, string.Empty);*/
+        }
         #region Validations
 
         public async Task<Envelope> CheckDuplication(DuplicateValidation input)

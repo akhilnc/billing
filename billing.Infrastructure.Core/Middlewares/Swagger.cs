@@ -11,7 +11,7 @@ namespace billing.Infrastructure.Core.Middlewares
         {
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Laundry App", Version = "v1"});
+                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Billing App", Version = "v1"});
                 options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 options.AddSecurityDefinition("Bearer",
                     new OpenApiSecurityScheme

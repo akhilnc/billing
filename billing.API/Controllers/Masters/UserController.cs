@@ -1,13 +1,12 @@
-﻿using FluentValidation;
+﻿
 using billing.API.Validators;
+using billing.Data;
 using billing.Data.DTOs.Masters;
 using billing.Data.Generics;
 using billing.Data.Generics.General;
 using billing.Service.Masters.User;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,23 +17,33 @@ namespace billing.API.Controllers.Masters
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
+        private readonly ILogger<UserController> _logger;
+
+
+        #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserController"/> class.
+        /// Initializes a new instance of the <see cref="UserController" /> class.
         /// </summary>
         /// <param name="service">The service.</param>
-        public UserController(IUserService service)
+        /// <param name="logger">The logger.</param>
+        public UserController(IUserService service, ILogger<UserController> logger )
         {
             _service = service;
+            _logger = logger;
         }
+        #endregion
 
+        #region Public Methods
         /// <summary>
         /// Gets all.
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetAll")]
+        [ProducesResponseType(typeof(UserDTO), 200)]
         public async Task<IActionResult> GetAll()
         {
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetAll), nameof(UserController));
             return Ok(await _service.GetAll());
         }
 
@@ -44,8 +53,10 @@ namespace billing.API.Controllers.Masters
         /// <param name="uId">The u identifier.</param>
         /// <returns></returns>
         [HttpGet("GetById")]
+        [ProducesResponseType(typeof(UserDTO), 200)]
         public async Task<IActionResult> GetById(string uId)
         {
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetById), nameof(UserController));
             return Ok(await _service.GetById(uId));
         }
 
@@ -55,6 +66,7 @@ namespace billing.API.Controllers.Masters
         /// <param name="input">The input.</param>
         /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(typeof(Envelope), 200)]
         public async Task<IActionResult> Save([FromBody] UserDTO input)
         {
             var validator = new UserValidator(_service);
@@ -62,7 +74,7 @@ namespace billing.API.Controllers.Masters
 
             if (!validationResult.IsValid)
                 return Ok(new Envelope(false, validationResult.Errors.FirstOrDefault().ErrorMessage));
-
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(Save), nameof(UserController));
             return Ok(await _service.Save(input));
         }
 
@@ -72,8 +84,10 @@ namespace billing.API.Controllers.Masters
         /// <param name="input">The input.</param>
         /// <returns></returns>
         [HttpPut]
+        [ProducesResponseType(typeof(Envelope), 200)]
         public async Task<IActionResult> Update([FromBody] UserDTO input)
         {
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(Update), nameof(UserController));
             return Ok(await _service.Update(input));
         }
 
@@ -83,8 +97,10 @@ namespace billing.API.Controllers.Masters
         /// <param name="uId">The u identifier.</param>
         /// <returns></returns>
         [HttpDelete]
+        [ProducesResponseType(typeof(Envelope), 200)]
         public async Task<IActionResult> Delete(string uId)
         {
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(Delete), nameof(UserController));
             return Ok(await _service.Delete(uId));
         }
 
@@ -98,9 +114,11 @@ namespace billing.API.Controllers.Masters
         [HttpGet("CheckDuplication")]
         public async Task<IActionResult> CheckDuplication([FromQuery] DuplicateValidation input)
         {
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(CheckDuplication), nameof(UserController));
             return Ok(await _service.CheckDuplication(input));
         }
 
+        #endregion
         #endregion
     }
 }

@@ -2,8 +2,11 @@ using billing.Data.DbContexts;
 using billing.Data.Generics.AppSettings;
 using billing.Infrastructure.Core.DependencyInjection;
 using billing.Infrastructure.Core.Middlewares;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,11 +29,12 @@ namespace billing.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppSettings>(Configuration);
-            services.AddControllers();
+            services.AddControllers()
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining(typeof(Startup)));
             services.AddHttpContextAccessor();
             var connectionString = Configuration.GetConnectionString("PostgresDb");
             services.AddScoped<IDbConnection, NpgsqlConnection>(_ => new NpgsqlConnection(connectionString));
-            services.AddDbContext<LAppContext>(opts => opts.UseNpgsql(connectionString).UseSnakeCaseNamingConvention());
+            services.AddDbContext<BillingAppContext>(opts => opts.UseNpgsql(connectionString).UseSnakeCaseNamingConvention());
             services.AddSingleton(new ConnectionString(connectionString));
      
 
@@ -40,6 +44,24 @@ namespace billing.API
             Swagger.ConfigureServices(services);
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = context =>
+                {
+                    var problemDetails = new ValidationProblemDetails(context.ModelState)
+                    {
+                        Instance = context.HttpContext.Request.Path,
+                        Status = StatusCodes.Status422UnprocessableEntity,
+                        Type = "https://httpstatuses.com/422",
+                    };
+                    return new ObjectResult(problemDetails)
+                    {
+                        ContentTypes = { "application/problem+json" },
+                        StatusCode = StatusCodes.Status422UnprocessableEntity
+                    };
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +73,7 @@ namespace billing.API
             Cors.Configure(app);
             JWTToken.Configure(app);
 
+            app.UseMiddleware<UserStatusCheckMiddleware>();
             app.UseRouting();
 
             app.UseAuthorization();

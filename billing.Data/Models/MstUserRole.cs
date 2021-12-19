@@ -1,35 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
-// If you have enabled NRTs for your project, then un-comment the following line:
-// #nullable disable
-
 namespace billing.Data.Models
 {
-    public partial class MstUserRole
+    public  class MstUserRole
     {
-        [Key,ForeignKey("User")]
-        public long Id { get; set; }
-        [Required]        
+
+        public int Id { get; set; }
         public string UId { get; set; }
-        [Required]
-        [StringLength(200)]
         public string Name { get; set; }
-        [Required]
-        [StringLength(50)]
         public string ShortName { get; set; }
-        public bool? IsActive { get; set; }
-        [Required]
+        public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
-        [Required]
         public DateTime CreatedOn { get; set; }
-        [Required]
         public string ModifiedBy { get; set; }
-        [Required]
-        public DateTime ModifiedOn { get; set; }
-        public virtual MstUser User { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public  MstUser User { get; set; }
     }
 }

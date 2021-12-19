@@ -91,9 +91,4 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EntitiyConfigurations\" />
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>
