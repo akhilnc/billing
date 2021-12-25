@@ -44,6 +44,17 @@ namespace billing.Data.Repositories.Masters.User
             return await _appContext.MstUser
                 .SingleOrDefaultAsync(u => u.UId == userId);
         }
+
+        /// <summary>
+        /// Gets the user by identifier.
+        /// </summary>
+        /// <param name="userName">The user identifier.</param>
+        /// <returns></returns>
+        public async Task<MstUser> GetUserByName(string userName)
+        {
+            return await _appContext.MstUser
+                .SingleOrDefaultAsync(u => u.UserName == userName);
+        }
         #endregion
     }
 }

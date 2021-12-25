@@ -9,6 +9,7 @@ namespace billing.Data.Repositories.Masters.User
     {
         Task<bool> CheckDuplication(DuplicateValidation input);
         Task<MstUser> GetUserById(string userId);
+        Task<MstUser> GetUserByName(string userName);
 
     }
 }

@@ -2,7 +2,7 @@
 {
     public class AppSettings
     {
-        public ConnectionString ConnectionStrings { get; set; }
+        //public ConnectionString ConnectionStrings { get; set; }
         public Cryptography Cryptography { get; set; }
         public PasswordSettings PasswordSettings { get; set; }
         public OTPSettings OTPSettings { get; set; }

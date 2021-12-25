@@ -4,6 +4,7 @@ using billing.Data.Generics.Enum;
 using billing.Data.Generics.General;
 using billing.Data.Models;
 using billing.Data.Repositories.Admin.Token;
+using billing.Data.Repositories.Masters.User;
 using billing.Data.Resources;
 using billing.Data.Resources.ModuleMessages;
 using billing.Infrastructure.Common.Logger;
@@ -18,12 +19,14 @@ namespace billing.Service.Authentication
         private readonly IToken _token;
         private readonly ITokenRepo _tokeRepo;
         private readonly IAppLogger _logger;
+        private readonly IUserRepo _userRepo;
 
-        public AuthenticationService(IToken token, ITokenRepo tokeRepo, IAppLogger logger)
+        public AuthenticationService(IToken token, ITokenRepo tokeRepo, IAppLogger logger,IUserRepo userRepo)
         {
             _token = token;
             _tokeRepo = tokeRepo;
             _logger = logger;
+            _userRepo = userRepo;
         }
 
 
@@ -31,9 +34,14 @@ namespace billing.Service.Authentication
         {
             try
             {
+                MstUser authUserDetails = await _userRepo.GetUserByName(input.UserName);
+                if (authUserDetails==null)
+                {
+                    return new Envelope<LoginResponse>(false, null, CommonMessages.USER_NOT_FOUND);
+                }
                 var user = new UserBase
                 {
-                    UserGuid = Guid.NewGuid().ToString(),
+                    UserGuid = authUserDetails.UId,
                     RefreshTokenIdentifier = Guid.NewGuid().ToString()
                 };
 

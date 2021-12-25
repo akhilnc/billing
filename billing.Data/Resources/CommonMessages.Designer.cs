@@ -77,5 +77,14 @@ namespace billing.Data.Resources {
                 return ResourceManager.GetString("SOMETHING_WRONG", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please check your username and password.
+        /// </summary>
+        public static string USER_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("USER_NOT_FOUND", resourceCulture);
+            }
+        }
     }
 }

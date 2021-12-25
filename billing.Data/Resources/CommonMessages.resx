@@ -123,4 +123,7 @@
   <data name="SOMETHING_WRONG" xml:space="preserve">
     <value>Something went wrong.</value>
   </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>Please check your username and password</value>
+  </data>
 </root>
