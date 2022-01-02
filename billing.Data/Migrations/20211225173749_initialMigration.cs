@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace billing.Data.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -98,7 +98,7 @@ namespace billing.Data.Migrations
             migrationBuilder.InsertData(
                 table: "mst_user_role",
                 columns: new[] { "id", "created_by", "created_on", "is_active", "modified_by", "modified_on", "name", "short_name", "u_id" },
-                values: new object[] { 1, "test", new DateTime(2021, 11, 28, 1, 1, 37, 867, DateTimeKind.Local).AddTicks(5039), true, "asda", new DateTime(2021, 11, 28, 1, 1, 37, 868, DateTimeKind.Local).AddTicks(2117), "admin", "Ad", "72b0799c-a635-4080-acce-de2b3cec8551" });
+                values: new object[] { 1, "test", new DateTime(2021, 12, 25, 23, 7, 49, 75, DateTimeKind.Local).AddTicks(5003), true, "asda", new DateTime(2021, 12, 25, 23, 7, 49, 76, DateTimeKind.Local).AddTicks(3376), "admin", "Ad", "5e2d0aab-ba56-47b9-a2ad-90854a33c873" });
 
             migrationBuilder.CreateIndex(
                 name: "ix_mst_user_role_id",

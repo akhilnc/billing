@@ -10,8 +10,8 @@ using billing.Data.DbContexts;
 namespace billing.Data.Migrations
 {
     [DbContext(typeof(BillingAppContext))]
-    [Migration("20211127193138_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20211225173749_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -230,13 +230,13 @@ namespace billing.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "test",
-                            CreatedOn = new DateTime(2021, 11, 28, 1, 1, 37, 867, DateTimeKind.Local).AddTicks(5039),
+                            CreatedOn = new DateTime(2021, 12, 25, 23, 7, 49, 75, DateTimeKind.Local).AddTicks(5003),
                             IsActive = true,
                             ModifiedBy = "asda",
-                            ModifiedOn = new DateTime(2021, 11, 28, 1, 1, 37, 868, DateTimeKind.Local).AddTicks(2117),
+                            ModifiedOn = new DateTime(2021, 12, 25, 23, 7, 49, 76, DateTimeKind.Local).AddTicks(3376),
                             Name = "admin",
                             ShortName = "Ad",
-                            UId = "72b0799c-a635-4080-acce-de2b3cec8551"
+                            UId = "5e2d0aab-ba56-47b9-a2ad-90854a33c873"
                         });
                 });
 

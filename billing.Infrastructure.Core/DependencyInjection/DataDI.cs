@@ -1,5 +1,6 @@
 ﻿using billing.Data.Repositories.Admin.Logger;
 using billing.Data.Repositories.Admin.Token;
+using billing.Data.Repositories.Masters.Service;
 using billing.Data.Repositories.Masters.User;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +13,8 @@ namespace billing.Infrastructure.Core.DependencyInjection
             #region Masters
 
             services.AddTransient<IUserRepo, UserRepo>();
+            services.AddTransient<IServiceRepo, ServiceRepo>();
+
 
             #endregion
 
