@@ -1,4 +1,5 @@
 ﻿using billing.Service.Authentication;
+using billing.Service.Masters.Service;
 using billing.Service.Masters.User;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,9 +10,8 @@ namespace billing.Infrastructure.Core.DependencyInjection
         public static void ConfigureService(IServiceCollection services)
         {
             #region Masters
-
             services.AddTransient<IUserService, UserService>();
-
+            services.AddTransient<IServiceService, ServiceService>();
             #endregion
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();

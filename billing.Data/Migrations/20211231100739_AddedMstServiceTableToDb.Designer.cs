@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using billing.Data.DbContexts;
@@ -9,9 +10,10 @@ using billing.Data.DbContexts;
 namespace billing.Data.Migrations
 {
     [DbContext(typeof(BillingAppContext))]
-    partial class BillingAppContextModelSnapshot : ModelSnapshot
+    [Migration("20211231100739_AddedMstServiceTableToDb")]
+    partial class AddedMstServiceTableToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,16 +129,15 @@ namespace billing.Data.Migrations
                         .HasColumnName("modified_on")
                         .HasDefaultValueSql("now() at time zone 'utc'");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<bool>("Name")
                         .HasMaxLength(300)
-                        .HasColumnType("character varying(300)")
+                        .HasColumnType("boolean")
                         .HasColumnName("name");
 
-                    b.Property<string>("UId")
+                    b.Property<string>("SId")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("u_id");
+                        .HasColumnName("s_id");
 
                     b.HasKey("Id")
                         .HasName("pk_mst_service");
@@ -281,13 +282,13 @@ namespace billing.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "test",
-                            CreatedOn = new DateTime(2021, 12, 31, 18, 26, 37, 639, DateTimeKind.Local).AddTicks(3964),
+                            CreatedOn = new DateTime(2021, 12, 31, 15, 37, 39, 41, DateTimeKind.Local).AddTicks(9607),
                             IsActive = true,
                             ModifiedBy = "asda",
-                            ModifiedOn = new DateTime(2021, 12, 31, 18, 26, 37, 640, DateTimeKind.Local).AddTicks(1340),
+                            ModifiedOn = new DateTime(2021, 12, 31, 15, 37, 39, 42, DateTimeKind.Local).AddTicks(8097),
                             Name = "admin",
                             ShortName = "Ad",
-                            UId = "e1c69f61-1b37-4914-81ba-08637f85c5df"
+                            UId = "4222100d-ea9d-42b0-9b58-f02e5fcbe030"
                         });
                 });
 

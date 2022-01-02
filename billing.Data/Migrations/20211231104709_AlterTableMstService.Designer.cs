@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using billing.Data.DbContexts;
@@ -9,9 +10,10 @@ using billing.Data.DbContexts;
 namespace billing.Data.Migrations
 {
     [DbContext(typeof(BillingAppContext))]
-    partial class BillingAppContextModelSnapshot : ModelSnapshot
+    [Migration("20211231104709_AlterTableMstService")]
+    partial class AlterTableMstService
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,10 +135,10 @@ namespace billing.Data.Migrations
                         .HasColumnType("character varying(300)")
                         .HasColumnName("name");
 
-                    b.Property<string>("UId")
+                    b.Property<string>("SId")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("u_id");
+                        .HasColumnName("s_id");
 
                     b.HasKey("Id")
                         .HasName("pk_mst_service");
@@ -281,13 +283,13 @@ namespace billing.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "test",
-                            CreatedOn = new DateTime(2021, 12, 31, 18, 26, 37, 639, DateTimeKind.Local).AddTicks(3964),
+                            CreatedOn = new DateTime(2021, 12, 31, 16, 17, 9, 160, DateTimeKind.Local).AddTicks(941),
                             IsActive = true,
                             ModifiedBy = "asda",
-                            ModifiedOn = new DateTime(2021, 12, 31, 18, 26, 37, 640, DateTimeKind.Local).AddTicks(1340),
+                            ModifiedOn = new DateTime(2021, 12, 31, 16, 17, 9, 160, DateTimeKind.Local).AddTicks(9248),
                             Name = "admin",
                             ShortName = "Ad",
-                            UId = "e1c69f61-1b37-4914-81ba-08637f85c5df"
+                            UId = "1e59fe31-6f8d-42bf-8a0a-56b70dac4f50"
                         });
                 });
 

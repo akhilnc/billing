@@ -14,6 +14,7 @@ namespace billing.Data.DbContexts
         public  DbSet<AdminUserRefreshToken> AdminUserRefreshToken { get; set; }
         public  DbSet<MstUser> MstUser { get; set; }
         public  DbSet<MstUserRole> MstUserRole { get; set; }
+        public DbSet<MstService> MstService { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
