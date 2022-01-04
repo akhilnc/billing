@@ -12,12 +12,15 @@ namespace billing.API.Mapping
             CreateMap<MstUser, UserDTO>();
             CreateMap<MstUserRole, UserRoleDTO>();
             CreateMap<MstService, ServiceDTO>();
+            CreateMap<MstCustomer, CustomerDTO>();
 
 
             // DTO to Entity
             CreateMap<UserDTO, MstUser>();
             CreateMap<UserRoleDTO, MstUserRole>();
             CreateMap<ServiceDTO, MstService>();
+            CreateMap<CustomerDTO, MstCustomer>();
+
 
         }
     }
