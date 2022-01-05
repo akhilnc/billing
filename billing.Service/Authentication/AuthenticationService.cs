@@ -47,7 +47,7 @@ namespace billing.Service.Authentication
 
                 var tokens = new TokenResponse
                 {
-                    AccessToken = GenToken(user, TokenType.AccessToken, ExpirationUnit.Minute),
+                    AccessToken = GenToken(user, TokenType.AccessToken, ExpirationUnit.Hour),
                     RefreshToken = GenToken(user, TokenType.RefreshToken, ExpirationUnit.Day)
                 };
 
@@ -110,7 +110,7 @@ namespace billing.Service.Authentication
                 Type = TokenType.AccessToken,
                 Data = new UserBase
                 {
-                    UserGuid = Guid.NewGuid().ToString()
+                    UserGuid = user.UserGuid
                 },
                 ExpUnit = unit
             };

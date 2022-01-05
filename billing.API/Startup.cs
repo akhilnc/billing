@@ -29,8 +29,7 @@ namespace billing.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppSettings>(Configuration);
-            services.AddControllers()
-            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining(typeof(Startup)));
+            services.AddControllers();
             services.AddHttpContextAccessor();
             var connectionString = Configuration.GetConnectionString("PostgresDb");
             services.AddScoped<IDbConnection, NpgsqlConnection>(_ => new NpgsqlConnection(connectionString));
@@ -45,23 +44,7 @@ namespace billing.API
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.InvalidModelStateResponseFactory = context =>
-                {
-                    var problemDetails = new ValidationProblemDetails(context.ModelState)
-                    {
-                        Instance = context.HttpContext.Request.Path,
-                        Status = StatusCodes.Status422UnprocessableEntity,
-                        Type = "https://httpstatuses.com/422",
-                    };
-                    return new ObjectResult(problemDetails)
-                    {
-                        ContentTypes = { "application/problem+json" },
-                        StatusCode = StatusCodes.Status422UnprocessableEntity
-                    };
-                };
-            });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,7 +56,7 @@ namespace billing.API
             Cors.Configure(app);
             JWTToken.Configure(app);
 
-            app.UseMiddleware<UserStatusCheckMiddleware>();
+            //app.UseMiddleware<UserStatusCheckMiddleware>();
             app.UseRouting();
 
             app.UseAuthorization();
