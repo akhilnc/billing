@@ -49,6 +49,7 @@ namespace billing.Service.Masters.User
             try
             {
                 var mappedInput = _mapper.Map<UserDTO, MstUser>(input);
+                mappedInput.UId = Guid.NewGuid().ToString();
                 string hash; string salt;
                 _hash.CreatePasswordHash(input.Password, out hash, out salt);
                 mappedInput.PasswordHash = hash;

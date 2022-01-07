@@ -11,6 +11,7 @@ using billing.Infrastructure.Common.Logger;
 using billing.Infrastructure.Common.Utlilities.TokenUserClaims;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace billing.Service.Masters.Service
@@ -38,7 +39,9 @@ namespace billing.Service.Masters.Service
         }
         public async Task<ServiceDTO> GetById(string uId)
         {
-            return _mapper.Map<MstService, ServiceDTO>(await _repo.GetByIdAsync(uId));
+            IEnumerable<MstService> items = await _repo.GetAllAsync();
+            var item = items.Where(x => x.UId == uId).FirstOrDefault();
+            return _mapper.Map<MstService, ServiceDTO>(item);
         }
 
         public async Task<Envelope> Save(ServiceDTO input)
@@ -46,9 +49,9 @@ namespace billing.Service.Masters.Service
             try
             {
                 var mappedInput = _mapper.Map<ServiceDTO, MstService>(input);
-
+                mappedInput.UId = Guid.NewGuid().ToString();
                 mappedInput.CreatedBy = _user.UserGuid;
-                mappedInput.ModifiedBy = _user.UserGuid;
+                mappedInput.CreatedOn = DateTime.Now;
                 await _repo.AddAsync(mappedInput);
                 var count = await _repo.CommitAsync();
                 return count > 0
@@ -82,11 +85,12 @@ namespace billing.Service.Masters.Service
         }
 
 
-        public async Task<Envelope> Delete(string sId)
+        public async Task<Envelope> Delete(string uId)
         {
             try
             {
-                var item = await _repo.GetByIdAsync(sId);
+                IEnumerable<MstService> items = await _repo.GetAllAsync();
+                var item = items.Where(x => x.UId == uId).FirstOrDefault();
                 _repo.Remove(item);
                 var count = await _repo.CommitAsync();
                 return count > 0
