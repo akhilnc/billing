@@ -39,8 +39,7 @@ namespace billing.Service.Masters.Service
         }
         public async Task<ServiceDTO> GetById(string uId)
         {
-            IEnumerable<MstService> items = await _repo.GetAllAsync();
-            var item = items.Where(x => x.UId == uId).FirstOrDefault();
+            var item = await _repo.GetServiceByUId(uId);
             return _mapper.Map<MstService, ServiceDTO>(item);
         }
 
@@ -89,8 +88,7 @@ namespace billing.Service.Masters.Service
         {
             try
             {
-                IEnumerable<MstService> items = await _repo.GetAllAsync();
-                var item = items.Where(x => x.UId == uId).FirstOrDefault();
+                var item = await _repo.GetServiceByUId(uId);
                 _repo.Remove(item);
                 var count = await _repo.CommitAsync();
                 return count > 0

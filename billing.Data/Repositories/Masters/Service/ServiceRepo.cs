@@ -37,24 +37,14 @@ namespace billing.Data.Repositories.Masters.Service
         /// <summary>
         /// Gets the user by identifier.
         /// </summary>
-        /// <param name="serviceId">The user identifier.</param>
+        /// <param name="serviceId">Gets service by uid</param>
         /// <returns></returns>
-        public async Task<MstService> GetUserById(string serviceId)
+        public async Task<MstService> GetServiceByUId(string uid)
         {
             return await _appContext.MstService
-                .SingleOrDefaultAsync(u => u.UId == serviceId);
+                .SingleOrDefaultAsync(u => u.UId == uid);
         }
 
-        /// <summary>
-        /// Gets the user by identifier.
-        /// </summary>
-        /// <param name="serviceName">The user identifier.</param>
-        /// <returns></returns>
-        public async Task<MstService> GetUserByName(string serviceName)
-        {
-            return await _appContext.MstService
-                .SingleOrDefaultAsync(u => u.Name == serviceName);
-        }
         #endregion
     }
 }
