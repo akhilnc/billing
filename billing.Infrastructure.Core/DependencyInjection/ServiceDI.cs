@@ -1,4 +1,6 @@
-﻿using billing.Service.Authentication;
+﻿using billing.Invoice.Billing.Invoice;
+using billing.Service.Authentication;
+using billing.Service.Billing.Invoice;
 using billing.Service.Masters.Customer;
 using billing.Service.Masters.Service;
 using billing.Service.Masters.User;
@@ -14,6 +16,7 @@ namespace billing.Infrastructure.Core.DependencyInjection
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IServiceService, ServiceService>();
             services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IInvoiceService, InvoiceService>();
 
 
             #endregion

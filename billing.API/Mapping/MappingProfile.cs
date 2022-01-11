@@ -13,6 +13,8 @@ namespace billing.API.Mapping
             CreateMap<MstUserRole, UserRoleDTO>();
             CreateMap<MstService, ServiceDTO>();
             CreateMap<MstCustomer, CustomerDTO>();
+            CreateMap<billing.Data.Models.Invoice,InvoiceDTO>();
+            CreateMap<InvoiceItem, InvoiceItemDTO>();
 
 
             // DTO to Entity
@@ -20,6 +22,8 @@ namespace billing.API.Mapping
             CreateMap<UserRoleDTO, MstUserRole>();
             CreateMap<ServiceDTO, MstService>();
             CreateMap<CustomerDTO, MstCustomer>();
+            CreateMap<InvoiceDTO, billing.Data.Models.Invoice>();
+            CreateMap<InvoiceItemDTO, InvoiceItem>();
 
 
         }

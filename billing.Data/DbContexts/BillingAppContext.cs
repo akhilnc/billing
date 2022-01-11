@@ -16,6 +16,8 @@ namespace billing.Data.DbContexts
         public  DbSet<MstUserRole> MstUserRole { get; set; }
         public DbSet<MstService> MstService { get; set; }
         public DbSet<MstCustomer> MstCustomer { get; set; }
+        public DbSet<Invoice> Invoice { get; set; }
+        public DbSet<InvoiceItem> InvoiceItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

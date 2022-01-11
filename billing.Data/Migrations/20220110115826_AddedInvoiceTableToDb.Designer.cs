@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using billing.Data.DbContexts;
@@ -9,9 +10,10 @@ using billing.Data.DbContexts;
 namespace billing.Data.Migrations
 {
     [DbContext(typeof(BillingAppContext))]
-    partial class BillingAppContextModelSnapshot : ModelSnapshot
+    [Migration("20220110115826_AddedInvoiceTableToDb")]
+    partial class AddedInvoiceTableToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
