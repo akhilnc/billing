@@ -2,10 +2,8 @@
 
 namespace billing.Data.Models
 {
-    public partial class MstService
+    public partial class MstService:MasterBase
     {
-        public int Id { get; set; }
-        public string UId { get; set; }
         public string Name { get; set; }
         public decimal Amount { get; set; }
         public bool IsActive { get; set; }

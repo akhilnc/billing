@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using billing.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace billing.Data.Repositories.Base
@@ -41,11 +42,10 @@ namespace billing.Data.Repositories.Base
             return await _context.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(string uId)
+        public async Task<TEntity> GetByIdAsync(string id)
         {
-            return await _context.Set<TEntity>().FindAsync(uId);
+            return await _context.Set<TEntity>().FindAsync(id);
         }
-
         public void Remove(TEntity entity)
         {
             _context.Set<TEntity>().Remove(entity);

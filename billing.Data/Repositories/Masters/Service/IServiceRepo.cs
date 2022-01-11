@@ -9,7 +9,6 @@ namespace billing.Data.Repositories.Masters.Service
    public  interface IServiceRepo : IRepositoryBase<MstService>
    {
         Task<bool> CheckDuplication(DuplicateValidation input);
-        Task<MstService> GetUserById(string userId);
-        Task<MstService> GetUserByName(string userName);
+        Task<MstService> GetServiceByUId(string uid);
     }
 }

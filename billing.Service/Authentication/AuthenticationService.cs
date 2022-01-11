@@ -8,6 +8,7 @@ using billing.Data.Repositories.Masters.User;
 using billing.Data.Resources;
 using billing.Data.Resources.ModuleMessages;
 using billing.Infrastructure.Common.Logger;
+using billing.Infrastructure.Security.Hashing;
 using billing.Infrastructure.Security.Token;
 using System;
 using System.Threading.Tasks;
@@ -20,13 +21,15 @@ namespace billing.Service.Authentication
         private readonly ITokenRepo _tokeRepo;
         private readonly IAppLogger _logger;
         private readonly IUserRepo _userRepo;
+        private readonly IHash _hash;
 
-        public AuthenticationService(IToken token, ITokenRepo tokeRepo, IAppLogger logger,IUserRepo userRepo)
+        public AuthenticationService(IToken token, ITokenRepo tokeRepo, IAppLogger logger,IUserRepo userRepo,IHash hash)
         {
             _token = token;
             _tokeRepo = tokeRepo;
             _logger = logger;
             _userRepo = userRepo;
+            _hash = hash;
         }
 
 
@@ -36,6 +39,11 @@ namespace billing.Service.Authentication
             {
                 MstUser authUserDetails = await _userRepo.GetUserByName(input.UserName);
                 if (authUserDetails==null)
+                {
+                    return new Envelope<LoginResponse>(false, null, CommonMessages.USER_NOT_FOUND);
+                }
+                var isAuth = _hash.ComparePasswordHash(input.Password, authUserDetails.PasswordHash, authUserDetails.PasswordSalt);
+                if (!isAuth)
                 {
                     return new Envelope<LoginResponse>(false, null, CommonMessages.USER_NOT_FOUND);
                 }
