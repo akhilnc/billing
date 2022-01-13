@@ -37,7 +37,7 @@ namespace billing.Data.Repositories.Masters.Service
         /// <summary>
         /// Gets the user by identifier.
         /// </summary>
-        /// <param name="serviceId">Gets service by uid</param>
+        /// <param name="uid">Gets service by uid</param>
         /// <returns></returns>
         public async Task<MstService> GetServiceByUId(string uid)
         {

@@ -8,7 +8,7 @@ namespace billing.Data.Repositories.Masters.Customer
     public interface ICustomerRepo : IRepositoryBase<MstCustomer>
     {
         Task<bool> CheckDuplication(DuplicateValidation input);
-        Task<MstCustomer> GetUserById(string userId);
-        Task<MstCustomer> GetUserByName(string userName);
+        Task<MstCustomer> GetCustomerByUId(string uid);
+
     }
 }

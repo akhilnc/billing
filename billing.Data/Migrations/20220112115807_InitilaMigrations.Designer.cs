@@ -10,8 +10,8 @@ using billing.Data.DbContexts;
 namespace billing.Data.Migrations
 {
     [DbContext(typeof(BillingAppContext))]
-    [Migration("20211225173749_initialMigration")]
-    partial class initialMigration
+    [Migration("20220112115807_InitilaMigrations")]
+    partial class InitilaMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -91,6 +91,117 @@ namespace billing.Data.Migrations
                         .HasName("pk_admin_user_refresh_token");
 
                     b.ToTable("admin_user_refresh_token");
+                });
+
+            modelBuilder.Entity("billing.Data.Models.MstCustomer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_on")
+                        .HasDefaultValueSql("now() at time zone 'utc'");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text")
+                        .HasColumnName("modified_by");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("modified_on")
+                        .HasDefaultValueSql("now() at time zone 'utc'");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("name");
+
+                    b.Property<long>("PhoneNumber")
+                        .HasMaxLength(12)
+                        .HasColumnType("bigint")
+                        .HasColumnName("phone_number");
+
+                    b.Property<string>("UId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("u_id");
+
+                    b.Property<string>("VehicleNumber")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("vehicle_number");
+
+                    b.HasKey("Id")
+                        .HasName("pk_mst_customer");
+
+                    b.ToTable("mst_customer");
+                });
+
+            modelBuilder.Entity("billing.Data.Models.MstService", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric")
+                        .HasColumnName("amount");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_on")
+                        .HasDefaultValueSql("now() at time zone 'utc'");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text")
+                        .HasColumnName("modified_by");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("modified_on")
+                        .HasDefaultValueSql("now() at time zone 'utc'");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("UId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("u_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_mst_service");
+
+                    b.ToTable("mst_service");
                 });
 
             modelBuilder.Entity("billing.Data.Models.MstUser", b =>
@@ -230,13 +341,13 @@ namespace billing.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "test",
-                            CreatedOn = new DateTime(2021, 12, 25, 23, 7, 49, 75, DateTimeKind.Local).AddTicks(5003),
+                            CreatedOn = new DateTime(2022, 1, 12, 17, 28, 6, 683, DateTimeKind.Local).AddTicks(2255),
                             IsActive = true,
                             ModifiedBy = "asda",
-                            ModifiedOn = new DateTime(2021, 12, 25, 23, 7, 49, 76, DateTimeKind.Local).AddTicks(3376),
+                            ModifiedOn = new DateTime(2022, 1, 12, 17, 28, 6, 684, DateTimeKind.Local).AddTicks(2699),
                             Name = "admin",
                             ShortName = "Ad",
-                            UId = "5e2d0aab-ba56-47b9-a2ad-90854a33c873"
+                            UId = "e072e970-98d3-4834-95d4-6ae21c50a245"
                         });
                 });
 

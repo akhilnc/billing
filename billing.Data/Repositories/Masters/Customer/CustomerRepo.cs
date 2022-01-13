@@ -2,9 +2,6 @@
 using billing.Data.Models;
 using billing.Data.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace billing.Data.Repositories.Masters.Customer
@@ -36,27 +33,18 @@ namespace billing.Data.Repositories.Masters.Customer
             return result.Count == 0;
         }
 
-        /// <summary>
-        /// Gets the user by identifier.
-        /// </summary>
-        /// <param name="costomerId">The user identifier.</param>
-        /// <returns></returns>
-        public async Task<MstCustomer> GetUserById(string costomerId)
-        {
-            return await _appContext.MstCustomer
-                .SingleOrDefaultAsync(u => u.UId == costomerId);
-        }
 
         /// <summary>
-        /// Gets the user by identifier.
+        /// Gets the customer by u identifier.
         /// </summary>
-        /// <param name="customerName">The user identifier.</param>
+        /// <param name="uid">The uid.</param>
         /// <returns></returns>
-        public async Task<MstCustomer> GetUserByName(string customerName)
+        public async Task<MstCustomer> GetCustomerByUId(string uid)
         {
             return await _appContext.MstCustomer
-                .SingleOrDefaultAsync(u => u.Name == customerName);
+                .SingleOrDefaultAsync(u => u.UId == uid);
         }
+
         #endregion
     }
 }

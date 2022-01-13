@@ -95,5 +95,27 @@ namespace billing.Data.Resources.Labels {
                 return ResourceManager.GetString("USER_NAME", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Phone Number.
+        /// </summary>
+        public static string PHONE_NUMBER
+        {
+            get
+            {
+                return ResourceManager.GetString("PHONE_NUMBER", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Vehicle Number.
+        /// </summary>
+        public static string VEHICLE_NUMBER
+        {
+            get
+            {
+                return ResourceManager.GetString("VEHICLE_NUMBER", resourceCulture);
+            }
+        }
     }
 }

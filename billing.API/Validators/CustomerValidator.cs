@@ -4,9 +4,6 @@ using billing.Data.Resources.Labels;
 using billing.Data.Resources.Validations;
 using billing.Service.Masters.Customer;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace billing.API.Validators
@@ -19,7 +16,7 @@ namespace billing.API.Validators
             _service = service;
 
             RuleFor(m => m.Name)
-                .NotEmpty().WithMessage(CommonValidationMessages.USER_NAME_REQUIRED)
+                .NotEmpty().WithMessage(CommonValidationMessages.NAME_REQUIRED)
                 .MustAsync(async (entity, value, c) => await CheckDuplication(new DuplicateValidation
                 {
                     Value = entity.Name,
@@ -28,6 +25,28 @@ namespace billing.API.Validators
                     Identifier = entity.UId
                 }))
                 .WithMessage(CommonValidationMessages.CUSTOM_VALUE_DUPLICATION.Replace("{{Label}}", CommonLabels.ResourceManager.GetString("NAME")));
+
+            RuleFor(m => m.PhoneNumber)
+              .NotEmpty().WithMessage(CommonValidationMessages.PHONE_NUMBER_REQUIRED)
+              .MustAsync(async (entity, value, c) => await CheckDuplication(new DuplicateValidation
+              {
+                  Value = entity.PhoneNumber.ToString(),
+                  Label = "PHONE_NUMBER",
+                  ColumnName = "phone_number",
+                  Identifier = entity.UId
+              }))
+              .WithMessage(CommonValidationMessages.CUSTOM_VALUE_DUPLICATION.Replace("{{Label}}", CommonLabels.ResourceManager.GetString("PHONE_NUMBER")));
+
+            RuleFor(m => m.VehicleNumber)
+            .NotEmpty().WithMessage(CommonValidationMessages.VEHICLE_NUMBER_REQUIRED)
+            .MustAsync(async (entity, value, c) => await CheckDuplication(new DuplicateValidation
+            {
+                Value = entity.VehicleNumber,
+                Label = "VEHICLE_NUMBER",
+                ColumnName = "vehicle_number",
+                Identifier = entity.UId
+            }))
+            .WithMessage(CommonValidationMessages.CUSTOM_VALUE_DUPLICATION.Replace("{{Label}}", CommonLabels.ResourceManager.GetString("VEHICLE_NUMBER")));
         }
 
         public async Task<bool> CheckDuplication(DuplicateValidation input)
