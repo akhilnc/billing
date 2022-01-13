@@ -11,7 +11,6 @@ using billing.Infrastructure.Common.Logger;
 using billing.Infrastructure.Common.Utlilities.TokenUserClaims;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace billing.Service.Masters.Customer
@@ -39,7 +38,8 @@ namespace billing.Service.Masters.Customer
         }
         public async Task<CustomerDTO> GetById(string uId)
         {
-            return _mapper.Map<MstCustomer, CustomerDTO>(await _repo.GetByIdAsync(uId));
+            var item = await _repo.GetCustomerByUId(uId);
+            return _mapper.Map<MstCustomer, CustomerDTO>(item);
         }
 
         public async Task<Envelope> Save(CustomerDTO input)
@@ -47,9 +47,7 @@ namespace billing.Service.Masters.Customer
             try
             {
                 var mappedInput = _mapper.Map<CustomerDTO, MstCustomer>(input);
-
-                mappedInput.CreatedBy = _user.UserGuid;
-                mappedInput.ModifiedBy = _user.UserGuid;
+                mappedInput.UId = Guid.NewGuid().ToString();
                 await _repo.AddAsync(mappedInput);
                 var count = await _repo.CommitAsync();
                 return count > 0
@@ -83,11 +81,16 @@ namespace billing.Service.Masters.Customer
         }
 
 
-        public async Task<Envelope> Delete(string sId)
+        /// <summary>
+        /// Deletes the specified s identifier.
+        /// </summary>
+        /// <param name="uId">The s identifier.</param>
+        /// <returns></returns>
+        public async Task<Envelope> Delete(string uId)
         {
             try
             {
-                var item = await _repo.GetByIdAsync(sId);
+                var item = await _repo.GetCustomerByUId(uId);
                 _repo.Remove(item);
                 var count = await _repo.CommitAsync();
                 return count > 0

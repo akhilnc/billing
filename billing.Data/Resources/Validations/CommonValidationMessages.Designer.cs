@@ -88,6 +88,15 @@ namespace billing.Data.Resources.Validations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phone number  is required.
+        /// </summary>
+        public static string PHONE_NUMBER_REQUIRED {
+            get {
+                return ResourceManager.GetString("PHONE_NUMBER_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Short name is required.
         /// </summary>
         public static string SHORT_NAME_REQUIRED {
@@ -102,6 +111,15 @@ namespace billing.Data.Resources.Validations {
         public static string USER_NAME_REQUIRED {
             get {
                 return ResourceManager.GetString("USER_NAME_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vehicle number  is required.
+        /// </summary>
+        public static string VEHICLE_NUMBER_REQUIRED {
+            get {
+                return ResourceManager.GetString("VEHICLE_NUMBER_REQUIRED", resourceCulture);
             }
         }
     }

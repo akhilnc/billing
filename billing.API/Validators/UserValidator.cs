@@ -16,7 +16,7 @@ namespace billing.API.Validators
             _service = service;
 
             RuleFor(m => m.UserName)
-                .NotEmpty().WithMessage(CommonValidationMessages.USER_NAME_REQUIRED)
+                .NotEmpty().WithMessage(CommonValidationMessages.NAME_REQUIRED)
                 .MustAsync(async (entity, value, c) => await CheckDuplication(new DuplicateValidation
                 {
                     Value = entity.UserName,
@@ -35,7 +35,7 @@ namespace billing.API.Validators
                     ColumnName = "full_name",
                     Identifier = entity.UId
                 }))
-                .WithMessage(CommonValidationMessages.CUSTOM_VALUE_DUPLICATION.Replace("{{Label}}", CommonLabels.ResourceManager.GetString("FULL_NAME"))); ;
+                .WithMessage(CommonValidationMessages.CUSTOM_VALUE_DUPLICATION.Replace("{{Label}}", CommonLabels.ResourceManager.GetString("FULL_NAME")));
         }
 
         public async Task<bool> CheckDuplication(DuplicateValidation input)

@@ -104,8 +104,10 @@ namespace billing.Data.Migrations
                         .HasColumnName("created_by");
 
                     b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasColumnName("created_on");
+                        .HasColumnName("created_on")
+                        .HasDefaultValueSql("now() at time zone 'utc'");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean")
@@ -116,22 +118,28 @@ namespace billing.Data.Migrations
                         .HasColumnName("modified_by");
 
                     b.Property<DateTime?>("ModifiedOn")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasColumnName("modified_on");
+                        .HasColumnName("modified_on")
+                        .HasDefaultValueSql("now() at time zone 'utc'");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
                         .HasColumnName("name");
 
                     b.Property<long>("PhoneNumber")
+                        .HasMaxLength(12)
                         .HasColumnType("bigint")
                         .HasColumnName("phone_number");
 
                     b.Property<string>("UId")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("u_id");
 
                     b.Property<string>("VehicleNumber")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("vehicle_number");
 
@@ -143,9 +151,9 @@ namespace billing.Data.Migrations
 
             modelBuilder.Entity("billing.Data.Models.MstService", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("bigint")
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
@@ -331,13 +339,13 @@ namespace billing.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "test",
-                            CreatedOn = new DateTime(2022, 1, 4, 7, 52, 29, 276, DateTimeKind.Local).AddTicks(6584),
+                            CreatedOn = new DateTime(2022, 1, 12, 17, 28, 6, 683, DateTimeKind.Local).AddTicks(2255),
                             IsActive = true,
                             ModifiedBy = "asda",
-                            ModifiedOn = new DateTime(2022, 1, 4, 7, 52, 29, 277, DateTimeKind.Local).AddTicks(5345),
+                            ModifiedOn = new DateTime(2022, 1, 12, 17, 28, 6, 684, DateTimeKind.Local).AddTicks(2699),
                             Name = "admin",
                             ShortName = "Ad",
-                            UId = "2963b4b7-d526-4de2-9405-d9144fbf6fd5"
+                            UId = "e072e970-98d3-4834-95d4-6ae21c50a245"
                         });
                 });
 

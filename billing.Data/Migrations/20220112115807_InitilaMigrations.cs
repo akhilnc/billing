@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace billing.Data.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class InitilaMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,6 +41,47 @@ namespace billing.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_admin_user_refresh_token", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "mst_customer",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    u_id = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
+                    phone_number = table.Column<long>(type: "bigint", maxLength: 12, nullable: false),
+                    vehicle_number = table.Column<string>(type: "text", nullable: false),
+                    is_active = table.Column<bool>(type: "boolean", nullable: false),
+                    created_on = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now() at time zone 'utc'"),
+                    created_by = table.Column<string>(type: "text", nullable: true),
+                    modified_on = table.Column<DateTime>(type: "timestamp without time zone", nullable: true, defaultValueSql: "now() at time zone 'utc'"),
+                    modified_by = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_mst_customer", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "mst_service",
+                columns: table => new
+                {
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    amount = table.Column<decimal>(type: "numeric", nullable: false),
+                    is_active = table.Column<bool>(type: "boolean", nullable: false),
+                    created_on = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now() at time zone 'utc'"),
+                    created_by = table.Column<string>(type: "text", nullable: true),
+                    modified_on = table.Column<DateTime>(type: "timestamp without time zone", nullable: true, defaultValueSql: "now() at time zone 'utc'"),
+                    modified_by = table.Column<string>(type: "text", nullable: true),
+                    u_id = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_mst_service", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,7 +139,7 @@ namespace billing.Data.Migrations
             migrationBuilder.InsertData(
                 table: "mst_user_role",
                 columns: new[] { "id", "created_by", "created_on", "is_active", "modified_by", "modified_on", "name", "short_name", "u_id" },
-                values: new object[] { 1, "test", new DateTime(2021, 12, 25, 23, 7, 49, 75, DateTimeKind.Local).AddTicks(5003), true, "asda", new DateTime(2021, 12, 25, 23, 7, 49, 76, DateTimeKind.Local).AddTicks(3376), "admin", "Ad", "5e2d0aab-ba56-47b9-a2ad-90854a33c873" });
+                values: new object[] { 1, "test", new DateTime(2022, 1, 12, 17, 28, 6, 683, DateTimeKind.Local).AddTicks(2255), true, "asda", new DateTime(2022, 1, 12, 17, 28, 6, 684, DateTimeKind.Local).AddTicks(2699), "admin", "Ad", "e072e970-98d3-4834-95d4-6ae21c50a245" });
 
             migrationBuilder.CreateIndex(
                 name: "ix_mst_user_role_id",
@@ -114,6 +155,12 @@ namespace billing.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "admin_user_refresh_token");
+
+            migrationBuilder.DropTable(
+                name: "mst_customer");
+
+            migrationBuilder.DropTable(
+                name: "mst_service");
 
             migrationBuilder.DropTable(
                 name: "mst_user");
