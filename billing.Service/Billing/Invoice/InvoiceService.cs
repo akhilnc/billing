@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using billing.Data.DTOs.Billing.Invoice;
 using billing.Data.DTOs.Masters;
 using billing.Data.Generics;
 using billing.Data.Generics.General;
@@ -31,9 +32,10 @@ namespace billing.Invoice.Billing.Invoice
         }
 
 
-        public async Task<IEnumerable<InvoiceDTO>> GetAll()
+        public async Task<IEnumerable<InvoiceListDTO>> GetAll()
         {
-            return _mapper.Map<IEnumerable<billing.Data.Models.Invoice>, IEnumerable<InvoiceDTO>>(await _repo.GetAllAsync());
+            var item = await _repo.GetAllInvoice();
+            return _mapper.Map<IEnumerable<billing.Data.Models.Invoice>, IEnumerable<InvoiceListDTO>>(item);
         }
         public async Task<InvoiceDTO> GetById(string id)
         {
@@ -67,6 +69,7 @@ namespace billing.Invoice.Billing.Invoice
             {
                 var mappedInput = _mapper.Map<InvoiceDTO, billing.Data.Models.Invoice>(input);
                 mappedInput.ModifiedBy = _user.UserGuid;
+                mappedInput.ModifiedOn = DateTime.Now;
                 await _repo.AddAsync(mappedInput);
                 await _repo.UpdateAsync(mappedInput);
                 var count = await _repo.CommitAsync();

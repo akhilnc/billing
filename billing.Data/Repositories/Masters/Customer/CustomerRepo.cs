@@ -1,9 +1,11 @@
-﻿using billing.Data.Generics.General;
+﻿using billing.Data.DTOs.Dropdown;
+using billing.Data.Generics.General;
 using billing.Data.Models;
 using billing.Data.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +22,20 @@ namespace billing.Data.Repositories.Masters.Customer
         public CustomerRepo(DbContexts.BillingAppContext appContext) : base(appContext)
         {
             _appContext = appContext;
+        }
+        /// <summary>
+        /// Customer Dropdown.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<CustomerDropdownDTO>> GetCustomerDropdown()
+        {
+            return await _appContext.MstCustomer.Select(x => new CustomerDropdownDTO
+            {
+                Id = x.Id,
+                Name=x.Name,
+                VehicleNumber=x.VehicleNumber
+
+            }).ToListAsync();
         }
         #region Validations
 

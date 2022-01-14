@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using billing.Data.DTOs.Billing.Invoice;
 using billing.Data.DTOs.Masters;
 using billing.Data.Models;
+using System.Collections.Generic;
 
 namespace billing.API.Mapping
 {
@@ -14,6 +16,7 @@ namespace billing.API.Mapping
             CreateMap<MstService, ServiceDTO>();
             CreateMap<MstCustomer, CustomerDTO>();
             CreateMap<billing.Data.Models.Invoice,InvoiceDTO>();
+            CreateMap<billing.Data.Models.Invoice, InvoiceListDTO>();
             CreateMap<InvoiceItem, InvoiceItemDTO>();
 
 
@@ -23,6 +26,7 @@ namespace billing.API.Mapping
             CreateMap<ServiceDTO, MstService>();
             CreateMap<CustomerDTO, MstCustomer>();
             CreateMap<InvoiceDTO, billing.Data.Models.Invoice>();
+            CreateMap<InvoiceListDTO, billing.Data.Models.Invoice>();
             CreateMap<InvoiceItemDTO, InvoiceItem>();
 
 

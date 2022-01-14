@@ -1,4 +1,5 @@
-﻿using billing.Data.DTOs.Masters;
+﻿using billing.Data.DTOs.Dropdown;
+using billing.Data.DTOs.Masters;
 using billing.Data.Generics;
 using billing.Data.Generics.General;
 using System.Collections.Generic;
@@ -14,6 +15,6 @@ namespace billing.Service.Masters.Service
         Task<Envelope> Update(ServiceDTO input);
         Task<Envelope> Delete(string uId);
         Task<Envelope> CheckDuplication(DuplicateValidation input);
-
+        Task<IEnumerable<ServiceDropdownDTO>> GetServiceDropdown();
     }
 }

@@ -15,4 +15,8 @@
     <ProjectReference Include="..\billing.Infrastructure.Security\billing.Infrastructure.Security.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="General\" />
+  </ItemGroup>
+
 </Project>

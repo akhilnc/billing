@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace billing.API.Controllers.Masters
+namespace billing.API.Controllers.Billing
 {
     [Route("api/[controller]")]
     [ApiController]

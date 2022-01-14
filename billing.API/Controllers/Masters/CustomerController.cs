@@ -1,5 +1,6 @@
 ﻿using billing.API.Validators;
 using billing.Data;
+using billing.Data.DTOs.Dropdown;
 using billing.Data.DTOs.Masters;
 using billing.Data.Generics;
 using billing.Data.Generics.General;
@@ -102,6 +103,17 @@ namespace billing.API.Controllers.Masters
         {
             _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(Delete), nameof(CustomerController));
             return Ok(await _service.Delete(uId));
+        }
+        /// <summary>
+        /// Gets customer dropdown.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetCustomerDropdown")]
+        [ProducesResponseType(typeof(CustomerDropdownDTO), 200)]
+        public async Task<IActionResult> GetCustomerDropdown()
+        {
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetCustomerDropdown), nameof(CustomerController));
+            return Ok(await _service.GetCustomerDropdown());
         }
 
         #region Validation

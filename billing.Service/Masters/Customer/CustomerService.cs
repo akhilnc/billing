@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using billing.Data.DTOs.Dropdown;
 using billing.Data.DTOs.Masters;
 using billing.Data.Generics;
 using billing.Data.Generics.General;
@@ -99,7 +100,10 @@ namespace billing.Service.Masters.Customer
                 return new Envelope(false, CommonMessages.SOMETHING_WRONG);
             }
         }
-
+        public async Task<IEnumerable<CustomerDropdownDTO>> GetCustomerDropdown()
+        {
+            return await _repo.GetCustomerDropdown();
+        }
         #region Validations
         public async Task<Envelope> CheckDuplication(DuplicateValidation input)
         {
@@ -116,6 +120,8 @@ namespace billing.Service.Masters.Customer
                 return new Envelope(false, CommonMessages.SOMETHING_WRONG);
             }
         }
+
+
         #endregion
     }
 }

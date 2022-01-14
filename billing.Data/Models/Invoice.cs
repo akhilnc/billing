@@ -11,6 +11,7 @@ namespace billing.Data.Models
         public int CustomerId { get; set; }
         public int Discount { get; set; }
         public int SubTotal { get; set; }
+        public int ServiceCharge { get; set; }
         public int TotalAmount { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
