@@ -100,6 +100,19 @@ namespace billing.API.Controllers.Billing
             return Ok(await _service.Delete(uId));
         }
 
+        /// <summary>
+        /// Get invoice no.
+        /// </summary>
+        /// <param name="uId">The u identifier.</param>
+        /// <returns></returns>
+        [HttpGet("GetInvoiceNo")]
+        [ProducesResponseType(typeof(string), 200)]
+        public async Task<IActionResult> GetInvoiceNo()
+        {
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetInvoiceNo), nameof(InvoiceController));
+            return Ok(await _service.GetInvoiceNo());
+        }
+
         #endregion
     }
 }

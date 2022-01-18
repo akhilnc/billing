@@ -15,5 +15,6 @@ namespace billing.Service.Billing.Invoice
         Task<Envelope> Save(InvoiceDTO input);
         Task<Envelope> Update(InvoiceDTO input);
         Task<Envelope> Delete(string uId);
+        Task<string> GetInvoiceNo();
     }
 }

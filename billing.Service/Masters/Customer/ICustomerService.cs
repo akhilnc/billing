@@ -13,7 +13,7 @@ namespace billing.Service.Masters.Customer
     {
         Task<IEnumerable<CustomerDTO>> GetAll();
         Task<CustomerDTO> GetById(string uId);
-        Task<Envelope> Save(CustomerDTO input);
+        Task<Envelope<int>> Save(CustomerDTO input);
         Task<Envelope> Update(CustomerDTO input);
         Task<Envelope> Delete(string uId);
         Task<Envelope> CheckDuplication(DuplicateValidation input);

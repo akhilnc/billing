@@ -71,7 +71,8 @@ namespace billing.Service.Authentication
 
                 var loginResponse = new LoginResponse
                 {
-                    Tokens = tokens
+                    Tokens = tokens,
+                    UserName= authUserDetails.UserName
                 };
                 return new Envelope<LoginResponse>(true, loginResponse, AdminMessages.LOGIN_SUCCESS);
             }

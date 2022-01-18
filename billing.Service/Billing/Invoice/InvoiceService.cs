@@ -3,11 +3,14 @@ using billing.Data.DTOs.Billing.Invoice;
 using billing.Data.DTOs.Masters;
 using billing.Data.Generics;
 using billing.Data.Generics.General;
+using billing.Data.Models;
 using billing.Data.Repositories.Billing.Invoice;
+using billing.Data.Repositories.Masters.Customer;
 using billing.Data.Resources;
 using billing.Infrastructure.Common.Logger;
 using billing.Infrastructure.Common.Utlilities.TokenUserClaims;
 using billing.Service.Billing.Invoice;
+using billing.Service.Masters.Customer;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,16 +22,18 @@ namespace billing.Invoice.Billing.Invoice
     {
         private readonly IMapper _mapper;
         private readonly IInvoiceRepo _repo;
+        private readonly ICustomerService _cusService;
         private readonly IAppLogger _logger;
         private readonly UserBase _user;
 
 
-        public InvoiceService(IInvoiceRepo repo, ITokenUserClaims claims, IMapper mapper, IAppLogger logger)
+        public InvoiceService(IInvoiceRepo repo, ITokenUserClaims claims, IMapper mapper, IAppLogger logger, ICustomerService cusService)
         {
             _user = claims.GetClaims();
             _mapper = mapper;
             _repo = repo;
             _logger = logger;
+            _cusService = cusService;
         }
 
 
@@ -48,6 +53,18 @@ namespace billing.Invoice.Billing.Invoice
             try
             {
                 var mappedInput = _mapper.Map<InvoiceDTO, billing.Data.Models.Invoice>(input);
+                if (input.Customer.Id == 0)
+                {
+                    var customer =await _cusService.Save(input.Customer);
+                    if (customer.Success)
+                    {
+                        mappedInput.Customer.Id = customer.Data;
+                    }
+                    else
+                    {
+                        return new Envelope(false, CommonMessages.SOMETHING_WRONG);
+                    }
+                }
                 mappedInput.CreatedBy = _user.UserGuid;
                 mappedInput.CreatedOn = DateTime.Now;
                 await _repo.AddAsync(mappedInput);
@@ -99,6 +116,17 @@ namespace billing.Invoice.Billing.Invoice
             {
                 return new Envelope(false, CommonMessages.SOMETHING_WRONG);
             }
+        }
+        public async Task<string> GetInvoiceNo()
+        {
+            string lastInvoiceId= await _repo.GetInvoiceNo();
+            int subDigits = 0;
+            if (!string.IsNullOrEmpty(lastInvoiceId))
+            {
+                Int32.TryParse(lastInvoiceId.Substring(2), out subDigits);
+            }
+            lastInvoiceId = $"JC{subDigits + 1}";
+            return lastInvoiceId;
         }
 
     }

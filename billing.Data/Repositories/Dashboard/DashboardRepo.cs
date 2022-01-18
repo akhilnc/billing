@@ -37,7 +37,7 @@ namespace billing.Data.Repositories.Dashboard
 
         public async Task<IEnumerable<billing.Data.Models.Invoice>> GetRecentInvoices()
         {
-            return await _appContext.Invoice.Include(c => c.Customer).ToListAsync();
+            return await _appContext.Invoice.Include(c => c.Customer).Take(5).ToListAsync();
         }
     }
 }

@@ -43,7 +43,7 @@ namespace billing.Service.Masters.Customer
             return _mapper.Map<MstCustomer, CustomerDTO>(await _repo.GetByIdAsync(uId));
         }
 
-        public async Task<Envelope> Save(CustomerDTO input)
+        public async Task<Envelope<int>> Save(CustomerDTO input)
         {
             try
             {
@@ -54,14 +54,14 @@ namespace billing.Service.Masters.Customer
                 await _repo.AddAsync(mappedInput);
                 var count = await _repo.CommitAsync();
                 return count > 0
-                    ? new Envelope(true, DbMessages.CREATED_SUCCESS)
-                    : new Envelope(false, CommonMessages.SOMETHING_WRONG);
+                    ? new Envelope<int>(true,mappedInput.Id,DbMessages.CREATED_SUCCESS)
+                    : new Envelope<int>(false,0, CommonMessages.SOMETHING_WRONG);
             }
             catch (Exception e)
             {
 
                 await _logger.Error("Something went wrong", e);
-                return new Envelope(false, CommonMessages.SOMETHING_WRONG);
+                return new Envelope<int>(false,0, CommonMessages.SOMETHING_WRONG);
             }
         }
         public async Task<Envelope> Update(CustomerDTO input)

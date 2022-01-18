@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +23,13 @@ namespace billing.Data.Repositories.Billing.Invoice
         public async Task<IEnumerable<billing.Data.Models.Invoice>> GetAllInvoice()
         {
             return await _appContext.Invoice.Include(c=>c.Customer).Include(i => i.InvoiceItems).ThenInclude(s => s.Service).ToListAsync();
+        }
+
+        public async Task<string> GetInvoiceNo()
+        {
+            var lastInvoice = await _appContext.Invoice.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+            string lastInvoiceId = lastInvoice.InvoiceNo;
+            return lastInvoiceId;
         }
     }
 }
