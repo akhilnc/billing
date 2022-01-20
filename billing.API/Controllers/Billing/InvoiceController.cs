@@ -106,7 +106,7 @@ namespace billing.API.Controllers.Billing
         /// <param name="uId">The u identifier.</param>
         /// <returns></returns>
         [HttpGet("GetInvoiceNo")]
-        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(JsonResult), 200)]
         public async Task<IActionResult> GetInvoiceNo()
         {
             _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetInvoiceNo), nameof(InvoiceController));

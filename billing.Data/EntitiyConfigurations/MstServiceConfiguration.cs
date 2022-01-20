@@ -15,6 +15,7 @@ namespace billing.Data.EntitiyConfigurations
             builder.Property(a => a.UId).IsRequired();
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+
         }
     }
 }

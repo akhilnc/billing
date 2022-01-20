@@ -18,9 +18,7 @@ namespace billing.Data.EntitiyConfigurations
             builder.HasOne(e => e.Invoice)
                     .WithMany(e => e.InvoiceItems)
                     .HasForeignKey(e => e.InvoiceId);
-            builder.HasOne(e => e.Service)
-                .WithOne(e => e.InvoiceItem)
-                .HasForeignKey<InvoiceItem>(p => p.ServiceId);
+              
         }
     }
 }

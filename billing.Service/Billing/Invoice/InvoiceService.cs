@@ -65,6 +65,8 @@ namespace billing.Invoice.Billing.Invoice
                         return new Envelope(false, CommonMessages.SOMETHING_WRONG);
                     }
                 }
+                mappedInput.CustomerId = mappedInput.Customer.Id;
+                mappedInput.Customer = null;
                 mappedInput.CreatedBy = _user.UserGuid;
                 mappedInput.CreatedOn = DateTime.Now;
                 await _repo.AddAsync(mappedInput);
