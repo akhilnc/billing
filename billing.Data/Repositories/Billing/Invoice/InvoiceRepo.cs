@@ -27,8 +27,13 @@ namespace billing.Data.Repositories.Billing.Invoice
 
         public async Task<string> GetInvoiceNo()
         {
-            var lastInvoice = await _appContext.Invoice.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
-            string lastInvoiceId = lastInvoice.InvoiceNo;
+            var lastInvoice = await _appContext.Invoice.OrderByDescending(x => x.Id)?.FirstOrDefaultAsync();
+            string lastInvoiceId="";
+            if (lastInvoice != null)
+            {
+                lastInvoiceId  = lastInvoice.InvoiceNo;
+
+            }
             return lastInvoiceId;
         }
     }

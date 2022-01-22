@@ -8,6 +8,7 @@ namespace billing.Data.DTOs.Masters
     {
         public int Id { get; set; }
         public string InvoiceNo { get; set; }
+        public int CustomerId { get; set; }
         public CustomerDTO Customer { get; set; }
         public int Discount { get; set; }
         public int SubTotal { get; set; }

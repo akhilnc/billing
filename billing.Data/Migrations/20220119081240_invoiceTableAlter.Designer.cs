@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using billing.Data.DbContexts;
@@ -9,9 +10,10 @@ using billing.Data.DbContexts;
 namespace billing.Data.Migrations
 {
     [DbContext(typeof(BillingAppContext))]
-    partial class BillingAppContextModelSnapshot : ModelSnapshot
+    [Migration("20220119081240_invoiceTableAlter")]
+    partial class invoiceTableAlter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,74 +93,6 @@ namespace billing.Data.Migrations
                     b.ToTable("admin_user_refresh_token");
                 });
 
-            modelBuilder.Entity("billing.Data.Models.CompanySettings", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Address1")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("address1");
-
-                    b.Property<string>("Address2")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("address2");
-
-                    b.Property<string>("District")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("district");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("email");
-
-                    b.Property<string>("Logo")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("logo");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("name");
-
-                    b.Property<string>("PhoneNo")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)")
-                        .HasColumnName("phone_no");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)")
-                        .HasColumnName("state");
-
-                    b.Property<string>("ZipCode")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)")
-                        .HasColumnName("zip_code");
-
-                    b.HasKey("Id")
-                        .HasName("pk_company_settings");
-
-                    b.ToTable("company_settings");
-                });
-
             modelBuilder.Entity("billing.Data.Models.Invoice", b =>
                 {
                     b.Property<int>("Id")
@@ -219,6 +153,7 @@ namespace billing.Data.Migrations
                         .HasName("pk_invoice");
 
                     b.HasIndex("CustomerId")
+                        .IsUnique()
                         .HasDatabaseName("ix_invoice_customer_id");
 
                     b.ToTable("invoice");
@@ -241,10 +176,6 @@ namespace billing.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("integer")
                         .HasColumnName("invoice_id");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer")
-                        .HasColumnName("quantity");
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("integer")
@@ -502,21 +433,21 @@ namespace billing.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "test",
-                            CreatedOn = new DateTime(2022, 1, 19, 13, 59, 50, 219, DateTimeKind.Local).AddTicks(5504),
+                            CreatedOn = new DateTime(2022, 1, 19, 13, 42, 39, 904, DateTimeKind.Local).AddTicks(6622),
                             IsActive = true,
                             ModifiedBy = "asda",
-                            ModifiedOn = new DateTime(2022, 1, 19, 13, 59, 50, 220, DateTimeKind.Local).AddTicks(4400),
+                            ModifiedOn = new DateTime(2022, 1, 19, 13, 42, 39, 905, DateTimeKind.Local).AddTicks(7651),
                             Name = "admin",
                             ShortName = "Ad",
-                            UId = "4f5eef3d-c348-401b-b865-9c5b09e4adba"
+                            UId = "b0384423-c669-42ee-a0cf-82412fee6133"
                         });
                 });
 
             modelBuilder.Entity("billing.Data.Models.Invoice", b =>
                 {
                     b.HasOne("billing.Data.Models.MstCustomer", "Customer")
-                        .WithMany("Invoices")
-                        .HasForeignKey("CustomerId")
+                        .WithOne("Invoice")
+                        .HasForeignKey("billing.Data.Models.Invoice", "CustomerId")
                         .HasConstraintName("fk_invoice_mst_customer_customer_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -564,7 +495,7 @@ namespace billing.Data.Migrations
 
             modelBuilder.Entity("billing.Data.Models.MstCustomer", b =>
                 {
-                    b.Navigation("Invoices");
+                    b.Navigation("Invoice");
                 });
 
             modelBuilder.Entity("billing.Data.Models.MstService", b =>

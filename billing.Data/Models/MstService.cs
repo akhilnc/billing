@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace billing.Data.Models
 {
@@ -13,7 +14,7 @@ namespace billing.Data.Models
         public string CreatedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public string ModifiedBy { get; set; }
-        public InvoiceItem InvoiceItem { get; set; }
+        public List<InvoiceItem> InvoiceItems { get; set; }
 
     }
 }

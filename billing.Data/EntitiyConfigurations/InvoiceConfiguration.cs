@@ -22,9 +22,6 @@ namespace billing.Data.EntitiyConfigurations
             builder.Property(a => a.Discount).IsRequired();
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.HasOne(e => e.Customer)
-                .WithOne(e => e.Invoice)
-                .HasForeignKey<Invoice>(p => p.CustomerId);
         }
     }
 }
