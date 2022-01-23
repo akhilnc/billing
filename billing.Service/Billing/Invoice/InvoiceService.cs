@@ -42,13 +42,13 @@ namespace billing.Invoice.Billing.Invoice
             var item = await _repo.GetAllInvoice();
             return _mapper.Map<IEnumerable<billing.Data.Models.Invoice>, IEnumerable<InvoiceListDTO>>(item);
         }
-        public async Task<InvoiceDTO> GetById(string id)
+        public async Task<InvoiceDTO> GetInvoiceById(int id)
         {
-            var item = await _repo.GetByIdAsync(id);
+            var item = await _repo.GetInvoiceById(id);
             return _mapper.Map<billing.Data.Models.Invoice, InvoiceDTO>(item);
         }
 
-        public async Task<Envelope> Save(InvoiceDTO input)
+        public async Task<Envelope<int>> Save(InvoiceDTO input)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace billing.Invoice.Billing.Invoice
                     }
                     else
                     {
-                        return new Envelope(false, CommonMessages.SOMETHING_WRONG);
+                        return new Envelope<int>(false,0, CommonMessages.SOMETHING_WRONG);
                     }
                 }
                 mappedInput.CustomerId = mappedInput.Customer.Id;
@@ -72,17 +72,17 @@ namespace billing.Invoice.Billing.Invoice
                 await _repo.AddAsync(mappedInput);
                 var count = await _repo.CommitAsync();
                 return count > 0
-                    ? new Envelope(true, DbMessages.CREATED_SUCCESS)
-                    : new Envelope(false, CommonMessages.SOMETHING_WRONG);
+                    ? new Envelope<int>(true, mappedInput.Id, DbMessages.CREATED_SUCCESS)
+                    : new Envelope<int>(false,0, CommonMessages.SOMETHING_WRONG);
             }
             catch (Exception e)
             {
 
                 await _logger.Error("Something went wrong", e);
-                return new Envelope(false, CommonMessages.SOMETHING_WRONG);
+                return new Envelope<int>(false,0, CommonMessages.SOMETHING_WRONG);
             }
         }
-        public async Task<Envelope> Update(InvoiceDTO input)
+        public async Task<Envelope<int>> Update(InvoiceDTO input)
         {
             try
             {
@@ -93,12 +93,12 @@ namespace billing.Invoice.Billing.Invoice
                 await _repo.UpdateAsync(mappedInput);
                 var count = await _repo.CommitAsync();
                 return count > 0
-                    ? new Envelope(true, DbMessages.UPDATED_SUCCESS)
-                    : new Envelope(false, CommonMessages.SOMETHING_WRONG);
+                    ? new Envelope<int>(true, mappedInput.Id, DbMessages.CREATED_SUCCESS)
+                    : new Envelope<int>(false, 0, CommonMessages.SOMETHING_WRONG);
             }
             catch (Exception e)
             {
-                return new Envelope(false, CommonMessages.SOMETHING_WRONG);
+                return new Envelope<int>(false,0, CommonMessages.SOMETHING_WRONG);
             }
         }
 

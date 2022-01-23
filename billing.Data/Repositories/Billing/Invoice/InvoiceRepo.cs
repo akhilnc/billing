@@ -25,6 +25,11 @@ namespace billing.Data.Repositories.Billing.Invoice
             return await _appContext.Invoice.Include(c=>c.Customer).Include(i => i.InvoiceItems).ThenInclude(s => s.Service).ToListAsync();
         }
 
+        public async Task<Models.Invoice> GetInvoiceById(int id)
+        {
+            return await _appContext.Invoice.Include(c => c.Customer).Include(i => i.InvoiceItems).ThenInclude(s => s.Service).Where(x=>x.Id==id).FirstOrDefaultAsync();
+        }
+
         public async Task<string> GetInvoiceNo()
         {
             var lastInvoice = await _appContext.Invoice.OrderByDescending(x => x.Id)?.FirstOrDefaultAsync();

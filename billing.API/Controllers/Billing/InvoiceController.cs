@@ -55,10 +55,10 @@ namespace billing.API.Controllers.Billing
         /// <returns></returns>
         [HttpGet("GetById")]
         [ProducesResponseType(typeof(InvoiceDTO), 200)]
-        public async Task<IActionResult> GetById(string uId)
+        public async Task<IActionResult> GetInvoiceById(int id)
         {
-            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetById), nameof(InvoiceController));
-            return Ok(await _service.GetById(uId));
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetInvoiceById), nameof(InvoiceController));
+            return Ok(await _service.GetInvoiceById(id));
         }
 
         /// <summary>

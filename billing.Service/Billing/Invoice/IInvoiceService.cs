@@ -11,9 +11,9 @@ namespace billing.Service.Billing.Invoice
     public interface IInvoiceService
     {
         Task<IEnumerable<InvoiceListDTO>> GetAll();
-        Task<InvoiceDTO> GetById(string uId);
-        Task<Envelope> Save(InvoiceDTO input);
-        Task<Envelope> Update(InvoiceDTO input);
+        Task<InvoiceDTO> GetInvoiceById(int id);
+        Task<Envelope<int>> Save(InvoiceDTO input);
+        Task<Envelope<int>> Update(InvoiceDTO input);
         Task<Envelope> Delete(string uId);
         Task<string> GetInvoiceNo();
     }

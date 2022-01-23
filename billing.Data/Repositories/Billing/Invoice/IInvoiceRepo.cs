@@ -9,6 +9,7 @@ namespace billing.Data.Repositories.Billing.Invoice
     public interface IInvoiceRepo: IRepositoryBase<billing.Data.Models.Invoice>
     {
         Task<IEnumerable<billing.Data.Models.Invoice>> GetAllInvoice();
+        Task<billing.Data.Models.Invoice> GetInvoiceById(int id);
         Task<string> GetInvoiceNo();
     }
 }
