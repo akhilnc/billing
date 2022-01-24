@@ -87,6 +87,21 @@ namespace billing.Invoice.Billing.Invoice
             try
             {
                 var mappedInput = _mapper.Map<InvoiceDTO, billing.Data.Models.Invoice>(input);
+
+                if (input.Customer.Id == 0)
+                {
+                    var customer = await _cusService.Save(input.Customer);
+                    if (customer.Success)
+                    {
+                        mappedInput.Customer.Id = customer.Data;
+                    }
+                    else
+                    {
+                        return new Envelope<int>(false, 0, CommonMessages.SOMETHING_WRONG);
+                    }
+                }
+                mappedInput.CustomerId = mappedInput.Customer.Id;
+                mappedInput.Customer = null;
                 mappedInput.ModifiedBy = _user.UserGuid;
                 mappedInput.ModifiedOn = DateTime.Now;
                 await _repo.AddAsync(mappedInput);
@@ -103,11 +118,11 @@ namespace billing.Invoice.Billing.Invoice
         }
 
 
-        public async Task<Envelope> Delete(string id)
+        public async Task<Envelope> Delete(int id)
         {
             try
             {
-                var item = await _repo.GetByIdAsync(id);
+                var item = await _repo.GetInvoiceById(id);
                 _repo.Remove(item);
                 var count = await _repo.CommitAsync();
                 return count > 0

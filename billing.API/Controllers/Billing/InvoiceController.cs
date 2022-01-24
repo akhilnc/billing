@@ -94,10 +94,10 @@ namespace billing.API.Controllers.Billing
         /// <returns></returns>
         [HttpDelete]
         [ProducesResponseType(typeof(Envelope), 200)]
-        public async Task<IActionResult> Delete(string uId)
+        public async Task<IActionResult> Delete(int id)
         {
             _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(Delete), nameof(InvoiceController));
-            return Ok(await _service.Delete(uId));
+            return Ok(await _service.Delete(id));
         }
 
         /// <summary>
