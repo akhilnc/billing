@@ -8,6 +8,7 @@ namespace billing.Data.Models
     {
         public int Id { get; set; }
         public string InvoiceNo { get; set; }
+        public DateTime InvoiceDate { get; set; }
         public int CustomerId { get; set; }
         public int Discount { get; set; }
         public int SubTotal { get; set; }

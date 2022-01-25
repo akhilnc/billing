@@ -19,6 +19,8 @@ namespace billing.Infrastructure.Core.DependencyInjection
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<IInvoiceService, InvoiceService>();
             services.AddTransient<IDashboardService, DashboardService>();
+            services.AddTransient<ICustomerService, CustomerService>();
+
 
 
             #endregion

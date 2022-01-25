@@ -1,9 +1,8 @@
 ﻿
-using System;
 
-namespace billing.Data.Models
+namespace billing.Data.DTOs.Masters
 {
-    public class CompanySettings
+  public   class CompanyDTO
     {
         public int Id { get; set; }
         public string UId { get; set; }
@@ -19,10 +18,5 @@ namespace billing.Data.Models
         public string? WhatsAppNumber { get; set; }
         public string? FaceBookId { get; set; }
         public string? InstagramId { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public string ModifiedBy { get; set; }
-
     }
 }

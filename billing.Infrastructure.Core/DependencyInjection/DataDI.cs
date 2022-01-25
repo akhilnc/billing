@@ -20,6 +20,8 @@ namespace billing.Infrastructure.Core.DependencyInjection
             services.AddTransient<ICustomerRepo, CustomerRepo>();
             services.AddTransient<IInvoiceRepo, InvoiceRepo>();
             services.AddTransient<IDashboardRepo, DashboardRepo>();
+            services.AddTransient<ICustomerRepo, CustomerRepo>();
+
 
 
 

@@ -11,6 +11,8 @@ namespace billing.Data.EntitiyConfigurations
     {
         public void Configure(EntityTypeBuilder<CompanySettings> builder)
         {
+            builder.Property(x => x.CreatedOn).HasDefaultValueSql(ApplicationConstants.CurrentDateDefaultValueSql);
+            builder.Property(x => x.ModifiedOn).HasDefaultValueSql(ApplicationConstants.CurrentDateDefaultValueSql);
             builder.Property(a => a.Id).IsRequired();
             builder.Property(a => a.Name).IsRequired().HasMaxLength(50);
             builder.Property(a => a.Logo).IsRequired().HasMaxLength(50);

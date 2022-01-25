@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using billing.Data.DbContexts;
@@ -9,9 +10,10 @@ using billing.Data.DbContexts;
 namespace billing.Data.Migrations
 {
     [DbContext(typeof(BillingAppContext))]
-    partial class BillingAppContextModelSnapshot : ModelSnapshot
+    [Migration("20220124173205_AlterTableCompanySettings ")]
+    partial class AlterTableCompanySettings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,10 +222,6 @@ namespace billing.Data.Migrations
                     b.Property<int>("Discount")
                         .HasColumnType("integer")
                         .HasColumnName("discount");
-
-                    b.Property<DateTime>("InvoiceDate")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("invoice_date");
 
                     b.Property<string>("InvoiceNo")
                         .IsRequired()
@@ -542,13 +540,13 @@ namespace billing.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "test",
-                            CreatedOn = new DateTime(2022, 1, 24, 23, 40, 35, 184, DateTimeKind.Local).AddTicks(2214),
+                            CreatedOn = new DateTime(2022, 1, 24, 23, 2, 4, 880, DateTimeKind.Local).AddTicks(2478),
                             IsActive = true,
                             ModifiedBy = "asda",
-                            ModifiedOn = new DateTime(2022, 1, 24, 23, 40, 35, 185, DateTimeKind.Local).AddTicks(852),
+                            ModifiedOn = new DateTime(2022, 1, 24, 23, 2, 4, 881, DateTimeKind.Local).AddTicks(1450),
                             Name = "admin",
                             ShortName = "Ad",
-                            UId = "76b4a824-3ae4-4258-a168-50f2c0972b6b"
+                            UId = "bf1ee3c9-e460-4ba7-bde6-925ed62eb3d5"
                         });
                 });
 
