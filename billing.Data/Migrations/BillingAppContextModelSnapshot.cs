@@ -91,6 +91,217 @@ namespace billing.Data.Migrations
                     b.ToTable("admin_user_refresh_token");
                 });
 
+            modelBuilder.Entity("billing.Data.Models.CompanySettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Address1")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("address1");
+
+                    b.Property<string>("Address2")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("address2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_on")
+                        .HasDefaultValueSql("now() at time zone 'utc'");
+
+                    b.Property<string>("District")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("district");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("email");
+
+                    b.Property<string>("FaceBookId")
+                        .HasColumnType("text")
+                        .HasColumnName("face_book_id");
+
+                    b.Property<string>("InstagramId")
+                        .HasColumnType("text")
+                        .HasColumnName("instagram_id");
+
+                    b.Property<string>("Logo")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("logo");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text")
+                        .HasColumnName("modified_by");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("modified_on")
+                        .HasDefaultValueSql("now() at time zone 'utc'");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("PhoneNo")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("phone_no");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("state");
+
+                    b.Property<string>("UId")
+                        .HasColumnType("text")
+                        .HasColumnName("u_id");
+
+                    b.Property<string>("WhatsAppNumber")
+                        .HasColumnType("text")
+                        .HasColumnName("whats_app_number");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("zip_code");
+
+                    b.HasKey("Id")
+                        .HasName("pk_company_settings");
+
+                    b.ToTable("company_settings");
+                });
+
+            modelBuilder.Entity("billing.Data.Models.Invoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_on")
+                        .HasDefaultValueSql("now() at time zone 'utc'");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("customer_id");
+
+                    b.Property<int>("Discount")
+                        .HasColumnType("integer")
+                        .HasColumnName("discount");
+
+                    b.Property<string>("InvoiceDate")
+                        .HasColumnType("text")
+                        .HasColumnName("invoice_date");
+
+                    b.Property<string>("InvoiceNo")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("invoice_no");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text")
+                        .HasColumnName("modified_by");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("modified_on")
+                        .HasDefaultValueSql("now() at time zone 'utc'");
+
+                    b.Property<int>("ServiceCharge")
+                        .HasColumnType("integer")
+                        .HasColumnName("service_charge");
+
+                    b.Property<int>("SubTotal")
+                        .HasMaxLength(10)
+                        .HasColumnType("integer")
+                        .HasColumnName("sub_total");
+
+                    b.Property<int>("TotalAmount")
+                        .HasMaxLength(10)
+                        .HasColumnType("integer")
+                        .HasColumnName("total_amount");
+
+                    b.HasKey("Id")
+                        .HasName("pk_invoice");
+
+                    b.HasIndex("CustomerId")
+                        .HasDatabaseName("ix_invoice_customer_id");
+
+                    b.ToTable("invoice");
+                });
+
+            modelBuilder.Entity("billing.Data.Models.InvoiceItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Amount")
+                        .HasMaxLength(10)
+                        .HasColumnType("integer")
+                        .HasColumnName("amount");
+
+                    b.Property<int>("InvoiceId")
+                        .HasMaxLength(50)
+                        .HasColumnType("integer")
+                        .HasColumnName("invoice_id");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("integer")
+                        .HasColumnName("service_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_invoice_item");
+
+                    b.HasIndex("InvoiceId")
+                        .HasDatabaseName("ix_invoice_item_invoice_id");
+
+                    b.HasIndex("ServiceId")
+                        .HasDatabaseName("ix_invoice_item_service_id");
+
+                    b.ToTable("invoice_item");
+                });
+
             modelBuilder.Entity("billing.Data.Models.MstCustomer", b =>
                 {
                     b.Property<int>("Id")
@@ -339,14 +550,47 @@ namespace billing.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "test",
-                            CreatedOn = new DateTime(2022, 1, 12, 17, 28, 6, 683, DateTimeKind.Local).AddTicks(2255),
+                            CreatedOn = new DateTime(2022, 1, 26, 9, 25, 57, 0, DateTimeKind.Local).AddTicks(3514),
                             IsActive = true,
                             ModifiedBy = "asda",
-                            ModifiedOn = new DateTime(2022, 1, 12, 17, 28, 6, 684, DateTimeKind.Local).AddTicks(2699),
+                            ModifiedOn = new DateTime(2022, 1, 26, 9, 25, 57, 1, DateTimeKind.Local).AddTicks(864),
                             Name = "admin",
                             ShortName = "Ad",
-                            UId = "e072e970-98d3-4834-95d4-6ae21c50a245"
+                            UId = "776c51c2-afbf-4fe3-8c39-805069415b2c"
                         });
+                });
+
+            modelBuilder.Entity("billing.Data.Models.Invoice", b =>
+                {
+                    b.HasOne("billing.Data.Models.MstCustomer", "Customer")
+                        .WithMany("Invoices")
+                        .HasForeignKey("CustomerId")
+                        .HasConstraintName("fk_invoice_mst_customer_customer_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("billing.Data.Models.InvoiceItem", b =>
+                {
+                    b.HasOne("billing.Data.Models.Invoice", "Invoice")
+                        .WithMany("InvoiceItems")
+                        .HasForeignKey("InvoiceId")
+                        .HasConstraintName("fk_invoice_item_invoice_invoice_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("billing.Data.Models.MstService", "Service")
+                        .WithMany("InvoiceItems")
+                        .HasForeignKey("ServiceId")
+                        .HasConstraintName("fk_invoice_item_mst_service_service_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("Service");
                 });
 
             modelBuilder.Entity("billing.Data.Models.MstUser", b =>
@@ -359,6 +603,21 @@ namespace billing.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("billing.Data.Models.Invoice", b =>
+                {
+                    b.Navigation("InvoiceItems");
+                });
+
+            modelBuilder.Entity("billing.Data.Models.MstCustomer", b =>
+                {
+                    b.Navigation("Invoices");
+                });
+
+            modelBuilder.Entity("billing.Data.Models.MstService", b =>
+                {
+                    b.Navigation("InvoiceItems");
                 });
 
             modelBuilder.Entity("billing.Data.Models.MstUserRole", b =>

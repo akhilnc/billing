@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using billing.Data.DTOs.Billing.Invoice;
 using billing.Data.DTOs.Masters;
 using billing.Data.Models;
 
@@ -13,6 +14,11 @@ namespace billing.API.Mapping
             CreateMap<MstUserRole, UserRoleDTO>();
             CreateMap<MstService, ServiceDTO>();
             CreateMap<MstCustomer, CustomerDTO>();
+            CreateMap<billing.Data.Models.Invoice,InvoiceDTO>();
+            CreateMap<billing.Data.Models.Invoice, InvoiceListDTO>();
+            CreateMap<InvoiceItem, InvoiceItemDTO>();
+            CreateMap<CompanySettings, CompanyDTO>();
+
 
 
             // DTO to Entity
@@ -20,6 +26,10 @@ namespace billing.API.Mapping
             CreateMap<UserRoleDTO, MstUserRole>();
             CreateMap<ServiceDTO, MstService>();
             CreateMap<CustomerDTO, MstCustomer>();
+            CreateMap<InvoiceDTO, billing.Data.Models.Invoice>();
+            CreateMap<InvoiceListDTO, billing.Data.Models.Invoice>();
+            CreateMap<InvoiceItemDTO, InvoiceItem>();
+            CreateMap<CompanyDTO, CompanySettings>();
 
 
         }
