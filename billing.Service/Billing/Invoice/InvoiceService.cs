@@ -100,6 +100,10 @@ namespace billing.Invoice.Billing.Invoice
                         return new Envelope<int>(false, 0, CommonMessages.SOMETHING_WRONG);
                     }
                 }
+                foreach (var item in mappedInput.InvoiceItems)
+                {
+                    item.InvoiceId = mappedInput.Id;
+                }
                 mappedInput.CustomerId = mappedInput.Customer.Id;
                 mappedInput.Customer = null;
                 mappedInput.ModifiedBy = _user.UserGuid;

@@ -10,6 +10,7 @@ namespace billing.Service.Masters.Company
     {
         Task<IEnumerable<CompanyDTO>> GetAll();
         Task<CompanyDTO> GetById(string uId);
+        Task<CompanyDTO> GetByName(string companyName);
         Task<Envelope<int>> Save(CompanyDTO input);
         Task<Envelope> Update(CompanyDTO input);
         Task<Envelope> Delete(string uId);

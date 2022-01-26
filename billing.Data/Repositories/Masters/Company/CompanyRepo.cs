@@ -2,9 +2,6 @@
 using billing.Data.Models;
 using billing.Data.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace billing.Data.Repositories.Masters.Company
@@ -33,7 +30,7 @@ namespace billing.Data.Repositories.Masters.Company
         {
             var query =
                 $"SELECT * FROM company_settings WHERE  {input.ColumnName} = '{input.Value}' AND {input.IdentifierColumnName} <> '{input.Identifier}' ";
-            var result = await _appContext.MstService.FromSqlRaw(query).ToListAsync();
+            var result = await _appContext.CompanySettings.FromSqlRaw(query).ToListAsync();
             return result.Count == 0;
         }
 
@@ -47,7 +44,11 @@ namespace billing.Data.Repositories.Masters.Company
             return await _appContext.CompanySettings
                 .SingleOrDefaultAsync(u => u.UId== Uid);
         }
-
+        public async Task<CompanySettings> GetCompanyByName(string companyName)
+        {
+            return await _appContext.CompanySettings
+                .SingleOrDefaultAsync(u => u.Name == companyName);
+        }
         #endregion
     }
 }

@@ -61,6 +61,19 @@ namespace billing.API.Controllers.Masters
         }
 
         /// <summary>
+        /// Gets the by identifier.
+        /// </summary>
+        /// <param name="companyName">The u identifier.</param>
+        /// <returns></returns>
+        [HttpGet("GetByName")]
+        [ProducesResponseType(typeof(CompanyDTO), 200)]
+        public async Task<IActionResult> GetByName(string companyName)
+        {
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetByName), nameof(CompanyController));
+            return Ok(await _service.GetByName(companyName));
+        }
+
+        /// <summary>
         /// Saves the specified input.
         /// </summary>
         /// <param name="input">The input.</param>

@@ -9,5 +9,6 @@ namespace billing.Data.Repositories.Masters.Company
     {
         Task<bool> CheckDuplication(DuplicateValidation input);
         Task<CompanySettings> GetCompanyByUId(string uid);
+        Task<CompanySettings> GetCompanyByName(string CompanyName);
     }
 }

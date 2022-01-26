@@ -2,7 +2,6 @@
 using billing.Data.DTOs.Billing.Invoice;
 using billing.Data.DTOs.Masters;
 using billing.Data.Models;
-using System.Collections.Generic;
 
 namespace billing.API.Mapping
 {
@@ -18,6 +17,8 @@ namespace billing.API.Mapping
             CreateMap<billing.Data.Models.Invoice,InvoiceDTO>();
             CreateMap<billing.Data.Models.Invoice, InvoiceListDTO>();
             CreateMap<InvoiceItem, InvoiceItemDTO>();
+            CreateMap<CompanySettings, CompanyDTO>();
+
 
 
             // DTO to Entity
@@ -28,6 +29,7 @@ namespace billing.API.Mapping
             CreateMap<InvoiceDTO, billing.Data.Models.Invoice>();
             CreateMap<InvoiceListDTO, billing.Data.Models.Invoice>();
             CreateMap<InvoiceItemDTO, InvoiceItem>();
+            CreateMap<CompanyDTO, CompanySettings>();
 
 
         }
