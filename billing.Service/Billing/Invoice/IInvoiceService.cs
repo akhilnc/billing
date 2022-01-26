@@ -16,5 +16,7 @@ namespace billing.Service.Billing.Invoice
         Task<Envelope<int>> Update(InvoiceDTO input);
         Task<Envelope> Delete(int id);
         Task<string> GetInvoiceNo();
+        Task<IEnumerable<InvoiceListDTO>> GetInvoices(int customerId);
+        Task<IEnumerable<ProductSaleReportDTO>> GetProductSale();
     }
 }

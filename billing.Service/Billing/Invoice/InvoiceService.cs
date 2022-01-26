@@ -39,8 +39,8 @@ namespace billing.Invoice.Billing.Invoice
 
         public async Task<IEnumerable<InvoiceListDTO>> GetAll()
         {
-            var item = await _repo.GetAllInvoice();
-            return _mapper.Map<IEnumerable<billing.Data.Models.Invoice>, IEnumerable<InvoiceListDTO>>(item);
+            var items = await _repo.GetAllInvoice();
+            return _mapper.Map<IEnumerable<billing.Data.Models.Invoice>, IEnumerable<InvoiceListDTO>>(items);
         }
         public async Task<InvoiceDTO> GetInvoiceById(int id)
         {
@@ -146,5 +146,14 @@ namespace billing.Invoice.Billing.Invoice
             return lastInvoiceId;
         }
 
+        public async Task<IEnumerable<InvoiceListDTO>> GetInvoices(int customerId)
+        {
+            return _mapper.Map<IEnumerable<billing.Data.Models.Invoice>, IEnumerable<InvoiceListDTO>>(await _repo.GetInvoices(customerId));
+        }
+
+        public async Task<IEnumerable<ProductSaleReportDTO>> GetProductSale()
+        {
+            return await _repo.GetProductSale();
+        }
     }
 }
