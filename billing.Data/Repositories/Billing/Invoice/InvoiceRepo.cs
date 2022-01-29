@@ -48,11 +48,9 @@ namespace billing.Data.Repositories.Billing.Invoice
             return await _appContext.Invoice.Where(x => x.CustomerId == customerId).Include(c => c.Customer).Include(i => i.InvoiceItems).ThenInclude(s => s.Service).ToListAsync();
         }
 
-        public async Task<IEnumerable<ProductSaleReportDTO>> GetProductSale()
+        public async Task<IEnumerable<ProductSaleReportDTO>> GetProductSale(DateTime from, DateTime to)
         {
-            var a = await _appContext.Invoice.Join(_appContext.InvoiceItem, i => i.Id, it => it.InvoiceId, (i, it) => new { i, it }).Join(_appContext.MstService, iit => iit.it.ServiceId, service => service.Id, (it, service) => new { ProductName = service.Name, quantity = it.it.Quantity,invoice=it.i }).Where(x=>x.invoice.CreatedOn>=DateTime.Now.Date).GroupBy(x => x.ProductName).Select(x => new ProductSaleReportDTO { ProductName = x.Key, Quantity = x.Sum(a => a.quantity) }).ToListAsync();
-            // var b = _appContext.Invoice.Join(_appContext.InvoiceItem, it => it.Id, i => i.InvoiceId, (it, i) => new { it, i }).Join(_appContext.MstService, s => s.i.ServiceId, service => service.Id, (s, service) => new { ProductName = service.Name }).ToListAsync();
-            return a;
+            return await _appContext.Invoice.Join(_appContext.InvoiceItem, i => i.Id, it => it.InvoiceId, (i, it) => new { i, it }).Join(_appContext.MstService, iit => iit.it.ServiceId, service => service.Id, (it, service) => new { ProductName = service.Name, quantity = it.it.Quantity, invoice = it.i }).Where(x => x.invoice.CreatedOn >= from.Date && x.invoice.CreatedOn<=to.Date).GroupBy(x => x.ProductName).Select(x => new ProductSaleReportDTO { ProductName = x.Key, Quantity = x.Sum(a => a.quantity) }).ToListAsync();
         }
     }
 }

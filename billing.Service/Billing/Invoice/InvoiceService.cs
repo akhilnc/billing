@@ -146,14 +146,14 @@ namespace billing.Invoice.Billing.Invoice
             return lastInvoiceId;
         }
 
-        public async Task<IEnumerable<InvoiceListDTO>> GetInvoices(int customerId)
+        public async Task<IEnumerable<InvoiceDTO>> GetInvoices(int customerId)
         {
-            return _mapper.Map<IEnumerable<billing.Data.Models.Invoice>, IEnumerable<InvoiceListDTO>>(await _repo.GetInvoices(customerId));
+            return _mapper.Map<IEnumerable<billing.Data.Models.Invoice>, IEnumerable<InvoiceDTO>>(await _repo.GetInvoices(customerId));
         }
 
-        public async Task<IEnumerable<ProductSaleReportDTO>> GetProductSale()
+        public async Task<IEnumerable<ProductSaleReportDTO>> GetProductSale(DateTime from, DateTime to)
         {
-            return await _repo.GetProductSale();
+            return await _repo.GetProductSale(from,to);
         }
     }
 }

@@ -130,10 +130,10 @@ namespace billing.API.Controllers.Billing
         /// <returns></returns>
         [HttpGet("GetProductSaleReport")]
         [ProducesResponseType(typeof(ProductSaleReportDTO), 200)]
-        public async Task<IActionResult> GetproductSale()
+        public async Task<IActionResult> GetproductSale(DateTime from, DateTime to)
         {
             _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetproductSale), nameof(InvoiceController));
-            return Ok(await _service.GetProductSale());
+            return Ok(await _service.GetProductSale(from,to));
         }
         #endregion
     }

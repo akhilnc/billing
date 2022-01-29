@@ -13,6 +13,6 @@ namespace billing.Data.Repositories.Billing.Invoice
         Task<billing.Data.Models.Invoice> GetInvoiceById(int id);
         Task<string> GetInvoiceNo();
         Task<IEnumerable<billing.Data.Models.Invoice>> GetInvoices(int customerId);
-        Task<IEnumerable<ProductSaleReportDTO>> GetProductSale();
+        Task<IEnumerable<ProductSaleReportDTO>> GetProductSale(DateTime from,DateTime to);
     }
 }
