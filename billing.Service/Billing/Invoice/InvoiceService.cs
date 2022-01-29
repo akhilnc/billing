@@ -108,7 +108,7 @@ namespace billing.Invoice.Billing.Invoice
                 mappedInput.Customer = null;
                 mappedInput.ModifiedBy = _user.UserGuid;
                 mappedInput.ModifiedOn = DateTime.Now;
-                await _repo.AddAsync(mappedInput);
+                //await _repo.AddAsync(mappedInput);
                 await _repo.UpdateAsync(mappedInput);
                 var count = await _repo.CommitAsync();
                 return count > 0
