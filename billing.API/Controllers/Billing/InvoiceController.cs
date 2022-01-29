@@ -1,4 +1,5 @@
 ﻿using billing.Data;
+using billing.Data.DTOs.Billing.Invoice;
 using billing.Data.DTOs.Masters;
 using billing.Data.Generics;
 using billing.Service.Billing.Invoice;
@@ -112,7 +113,28 @@ namespace billing.API.Controllers.Billing
             _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetInvoiceNo), nameof(InvoiceController));
             return Ok(await _service.GetInvoiceNo());
         }
-
+        /// <summary>
+        /// Gets invoices based on customer.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetInvoicesByCustomerId")]
+        [ProducesResponseType(typeof(InvoiceDTO), 200)]
+        public async Task<IActionResult> GetInvoices(int customerId)
+        {
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetInvoices), nameof(InvoiceController));
+            return Ok(await _service.GetInvoices(customerId));
+        }
+        /// <summary>
+        /// Gets product sale report based on date.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetProductSaleReport")]
+        [ProducesResponseType(typeof(ProductSaleReportDTO), 200)]
+        public async Task<IActionResult> GetproductSale(DateTime from, DateTime to)
+        {
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetproductSale), nameof(InvoiceController));
+            return Ok(await _service.GetProductSale(from,to));
+        }
         #endregion
     }
 }
