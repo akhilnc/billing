@@ -10,8 +10,8 @@ using billing.Data.DbContexts;
 namespace billing.Data.Migrations
 {
     [DbContext(typeof(BillingAppContext))]
-    [Migration("20220124173205_AlterTableCompanySettings ")]
-    partial class AlterTableCompanySettings
+    [Migration("20220130063510_InitialMigrationAddedTablesToDb")]
+    partial class InitialMigrationAddedTablesToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -219,9 +219,13 @@ namespace billing.Data.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("customer_id");
 
-                    b.Property<int>("Discount")
-                        .HasColumnType("integer")
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("numeric")
                         .HasColumnName("discount");
+
+                    b.Property<DateTime>("InvoiceDate")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("invoice_date");
 
                     b.Property<string>("InvoiceNo")
                         .IsRequired()
@@ -239,18 +243,18 @@ namespace billing.Data.Migrations
                         .HasColumnName("modified_on")
                         .HasDefaultValueSql("now() at time zone 'utc'");
 
-                    b.Property<int>("ServiceCharge")
-                        .HasColumnType("integer")
+                    b.Property<decimal>("ServiceCharge")
+                        .HasColumnType("numeric")
                         .HasColumnName("service_charge");
 
-                    b.Property<int>("SubTotal")
+                    b.Property<decimal>("SubTotal")
                         .HasMaxLength(10)
-                        .HasColumnType("integer")
+                        .HasColumnType("numeric")
                         .HasColumnName("sub_total");
 
-                    b.Property<int>("TotalAmount")
+                    b.Property<decimal>("TotalAmount")
                         .HasMaxLength(10)
-                        .HasColumnType("integer")
+                        .HasColumnType("numeric")
                         .HasColumnName("total_amount");
 
                     b.HasKey("Id")
@@ -270,9 +274,9 @@ namespace billing.Data.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("Amount")
+                    b.Property<decimal>("Amount")
                         .HasMaxLength(10)
-                        .HasColumnType("integer")
+                        .HasColumnType("numeric")
                         .HasColumnName("amount");
 
                     b.Property<int>("InvoiceId")
@@ -313,8 +317,10 @@ namespace billing.Data.Migrations
                         .HasColumnName("created_by");
 
                     b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasColumnName("created_on");
+                        .HasColumnName("created_on")
+                        .HasDefaultValueSql("now() at time zone 'utc'");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean")
@@ -325,22 +331,28 @@ namespace billing.Data.Migrations
                         .HasColumnName("modified_by");
 
                     b.Property<DateTime?>("ModifiedOn")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasColumnName("modified_on");
+                        .HasColumnName("modified_on")
+                        .HasDefaultValueSql("now() at time zone 'utc'");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
                         .HasColumnName("name");
 
                     b.Property<long>("PhoneNumber")
+                        .HasMaxLength(12)
                         .HasColumnType("bigint")
                         .HasColumnName("phone_number");
 
                     b.Property<string>("UId")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("u_id");
 
                     b.Property<string>("VehicleNumber")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("vehicle_number");
 
@@ -540,13 +552,13 @@ namespace billing.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "test",
-                            CreatedOn = new DateTime(2022, 1, 24, 23, 2, 4, 880, DateTimeKind.Local).AddTicks(2478),
+                            CreatedOn = new DateTime(2022, 1, 30, 12, 5, 10, 270, DateTimeKind.Local).AddTicks(9791),
                             IsActive = true,
                             ModifiedBy = "asda",
-                            ModifiedOn = new DateTime(2022, 1, 24, 23, 2, 4, 881, DateTimeKind.Local).AddTicks(1450),
+                            ModifiedOn = new DateTime(2022, 1, 30, 12, 5, 10, 271, DateTimeKind.Local).AddTicks(7727),
                             Name = "admin",
                             ShortName = "Ad",
-                            UId = "bf1ee3c9-e460-4ba7-bde6-925ed62eb3d5"
+                            UId = "17fcb90a-3b9f-4a68-a963-77f484b0f904"
                         });
                 });
 

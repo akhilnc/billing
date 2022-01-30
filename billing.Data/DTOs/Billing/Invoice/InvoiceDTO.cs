@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace billing.Data.DTOs.Masters
 {
@@ -8,13 +7,13 @@ namespace billing.Data.DTOs.Masters
     {
         public int Id { get; set; }
         public string InvoiceNo { get; set; }
-        public string InvoiceDate { get; set; }
+        public DateTime InvoiceDate { get; set; }
         public int CustomerId { get; set; }
         public CustomerDTO Customer { get; set; }
-        public int Discount { get; set; }
-        public int SubTotal { get; set; }
-        public int TotalAmount { get; set; }
-        public int ServiceCharge { get; set; }
+        public decimal Discount { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal TotalAmount { get; set; }
+        public decimal ServiceCharge { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }

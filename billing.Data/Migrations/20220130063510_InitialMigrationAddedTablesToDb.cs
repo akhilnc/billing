@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace billing.Data.Migrations
 {
-    public partial class InitilaMigrations : Migration
+    public partial class InitialMigrationAddedTablesToDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,35 @@ namespace billing.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "company_settings",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    u_id = table.Column<string>(type: "text", nullable: true),
+                    name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    phone_no = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
+                    logo = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    address1 = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    address2 = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    state = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
+                    district = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    zip_code = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
+                    whats_app_number = table.Column<string>(type: "text", nullable: true),
+                    face_book_id = table.Column<string>(type: "text", nullable: true),
+                    instagram_id = table.Column<string>(type: "text", nullable: true),
+                    created_on = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now() at time zone 'utc'"),
+                    created_by = table.Column<string>(type: "text", nullable: true),
+                    modified_on = table.Column<DateTime>(type: "timestamp without time zone", nullable: true, defaultValueSql: "now() at time zone 'utc'"),
+                    modified_by = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_company_settings", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "mst_customer",
                 columns: table => new
                 {
@@ -68,16 +97,16 @@ namespace billing.Data.Migrations
                 name: "mst_service",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    u_id = table.Column<string>(type: "text", nullable: false),
                     name = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
                     amount = table.Column<decimal>(type: "numeric", nullable: false),
                     is_active = table.Column<bool>(type: "boolean", nullable: false),
                     created_on = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now() at time zone 'utc'"),
                     created_by = table.Column<string>(type: "text", nullable: true),
                     modified_on = table.Column<DateTime>(type: "timestamp without time zone", nullable: true, defaultValueSql: "now() at time zone 'utc'"),
-                    modified_by = table.Column<string>(type: "text", nullable: true),
-                    u_id = table.Column<string>(type: "text", nullable: false)
+                    modified_by = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -102,6 +131,35 @@ namespace billing.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_mst_user_role", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "invoice",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    invoice_no = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    invoice_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    customer_id = table.Column<int>(type: "integer", nullable: false),
+                    discount = table.Column<decimal>(type: "numeric", nullable: false),
+                    sub_total = table.Column<decimal>(type: "numeric", maxLength: 10, nullable: false),
+                    service_charge = table.Column<decimal>(type: "numeric", nullable: false),
+                    total_amount = table.Column<decimal>(type: "numeric", maxLength: 10, nullable: false),
+                    created_on = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now() at time zone 'utc'"),
+                    created_by = table.Column<string>(type: "text", nullable: true),
+                    modified_on = table.Column<DateTime>(type: "timestamp without time zone", nullable: true, defaultValueSql: "now() at time zone 'utc'"),
+                    modified_by = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_invoice", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_invoice_mst_customer_customer_id",
+                        column: x => x.customer_id,
+                        principalTable: "mst_customer",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -136,10 +194,53 @@ namespace billing.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "invoice_item",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    service_id = table.Column<int>(type: "integer", nullable: false),
+                    quantity = table.Column<int>(type: "integer", nullable: false),
+                    amount = table.Column<decimal>(type: "numeric", maxLength: 10, nullable: false),
+                    invoice_id = table.Column<int>(type: "integer", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_invoice_item", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_invoice_item_invoice_invoice_id",
+                        column: x => x.invoice_id,
+                        principalTable: "invoice",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_invoice_item_mst_service_service_id",
+                        column: x => x.service_id,
+                        principalTable: "mst_service",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "mst_user_role",
                 columns: new[] { "id", "created_by", "created_on", "is_active", "modified_by", "modified_on", "name", "short_name", "u_id" },
-                values: new object[] { 1, "test", new DateTime(2022, 1, 12, 17, 28, 6, 683, DateTimeKind.Local).AddTicks(2255), true, "asda", new DateTime(2022, 1, 12, 17, 28, 6, 684, DateTimeKind.Local).AddTicks(2699), "admin", "Ad", "e072e970-98d3-4834-95d4-6ae21c50a245" });
+                values: new object[] { 1, "test", new DateTime(2022, 1, 30, 12, 5, 10, 270, DateTimeKind.Local).AddTicks(9791), true, "asda", new DateTime(2022, 1, 30, 12, 5, 10, 271, DateTimeKind.Local).AddTicks(7727), "admin", "Ad", "17fcb90a-3b9f-4a68-a963-77f484b0f904" });
+
+            migrationBuilder.CreateIndex(
+                name: "ix_invoice_customer_id",
+                table: "invoice",
+                column: "customer_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_invoice_item_invoice_id",
+                table: "invoice_item",
+                column: "invoice_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_invoice_item_service_id",
+                table: "invoice_item",
+                column: "service_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_mst_user_role_id",
@@ -157,16 +258,25 @@ namespace billing.Data.Migrations
                 name: "admin_user_refresh_token");
 
             migrationBuilder.DropTable(
-                name: "mst_customer");
+                name: "company_settings");
 
             migrationBuilder.DropTable(
-                name: "mst_service");
+                name: "invoice_item");
 
             migrationBuilder.DropTable(
                 name: "mst_user");
 
             migrationBuilder.DropTable(
+                name: "invoice");
+
+            migrationBuilder.DropTable(
+                name: "mst_service");
+
+            migrationBuilder.DropTable(
                 name: "mst_user_role");
+
+            migrationBuilder.DropTable(
+                name: "mst_customer");
         }
     }
 }
