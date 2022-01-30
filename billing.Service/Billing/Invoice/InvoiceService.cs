@@ -3,9 +3,7 @@ using billing.Data.DTOs.Billing.Invoice;
 using billing.Data.DTOs.Masters;
 using billing.Data.Generics;
 using billing.Data.Generics.General;
-using billing.Data.Models;
 using billing.Data.Repositories.Billing.Invoice;
-using billing.Data.Repositories.Masters.Customer;
 using billing.Data.Resources;
 using billing.Infrastructure.Common.Logger;
 using billing.Infrastructure.Common.Utlilities.TokenUserClaims;
@@ -13,7 +11,6 @@ using billing.Service.Billing.Invoice;
 using billing.Service.Masters.Customer;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace billing.Invoice.Billing.Invoice
@@ -108,7 +105,6 @@ namespace billing.Invoice.Billing.Invoice
                 mappedInput.Customer = null;
                 mappedInput.ModifiedBy = _user.UserGuid;
                 mappedInput.ModifiedOn = DateTime.Now;
-                await _repo.AddAsync(mappedInput);
                 await _repo.UpdateAsync(mappedInput);
                 var count = await _repo.CommitAsync();
                 return count > 0

@@ -10,7 +10,7 @@ namespace billing.Data.DTOs.Masters
         public int ServiceId { get; set; }
         public ServiceDTO Service { get; set; }
         public int Quantity { get; set; }
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         public int InvoiceId { get; set; }
     }
 }

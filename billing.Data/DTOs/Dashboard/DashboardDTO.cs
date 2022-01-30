@@ -9,6 +9,6 @@ namespace billing.Data.DTOs.Dashboard
     {
         public int CustomerCount { get; set; }
         public int InvoiceCount { get; set; }
-        public int TotalRevenue { get; set; }
+        public decimal TotalRevenue { get; set; }
     }
 }

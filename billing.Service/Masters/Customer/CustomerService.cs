@@ -49,6 +49,8 @@ namespace billing.Service.Masters.Customer
             {
                 var mappedInput = _mapper.Map<CustomerDTO, MstCustomer>(input);
                 mappedInput.UId = Guid.NewGuid().ToString();
+                mappedInput.CreatedBy = _user.UserGuid;
+                mappedInput.CreatedOn = DateTime.Now;
                 await _repo.AddAsync(mappedInput);
                 var count = await _repo.CommitAsync();
                 return count > 0
