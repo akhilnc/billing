@@ -50,7 +50,7 @@ namespace billing.Data.Repositories.Billing.Invoice
 
         public async Task<IEnumerable<ProductSaleReportDTO>> GetProductSale(DateTime from, DateTime to)
         {
-            return await _appContext.Invoice.Join(_appContext.InvoiceItem, i => i.Id, it => it.InvoiceId, (i, it) => new { i, it }).Join(_appContext.MstService, iit => iit.it.ServiceId, service => service.Id, (it, service) => new { ProductName = service.Name, quantity = it.it.Quantity, invoice = it.i }).Where(x => x.invoice.CreatedOn >= from.Date && x.invoice.CreatedOn<=to.Date).GroupBy(x => x.ProductName).Select(x => new ProductSaleReportDTO { ProductName = x.Key, Quantity = x.Sum(a => a.quantity) }).ToListAsync();
+            return await _appContext.Invoice.Join(_appContext.InvoiceItem, i => i.Id, it => it.InvoiceId, (i, it) => new { i, it }).Join(_appContext.MstService, iit => iit.it.ServiceId, service => service.Id, (it, service) => new { ProductName = service.Name, quantity = it.it.Quantity, invoice = it.i }).Where(x => x.invoice.InvoiceDate >= from.Date && x.invoice.InvoiceDate<=to.Date).GroupBy(x => x.ProductName).Select(x => new ProductSaleReportDTO { ProductName = x.Key, Quantity = x.Sum(a => a.quantity) }).ToListAsync();
         }
     }
 }

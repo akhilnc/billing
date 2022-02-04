@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Npgsql;
 using System.Data;
+using Newtonsoft.Json.Converters;
 
 namespace billing.API
 {
@@ -29,7 +30,12 @@ namespace billing.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppSettings>(Configuration);
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.Converters.Add(new IsoDateTimeConverter { DateTimeFormat = "MM/dd/yyyy HH:mm:ss" });
+            }
+         );
             services.AddHttpContextAccessor();
             var connectionString = Configuration.GetConnectionString("PostgresDb");
             services.AddScoped<IDbConnection, NpgsqlConnection>(_ => new NpgsqlConnection(connectionString));
