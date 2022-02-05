@@ -33,7 +33,7 @@ namespace billing.API
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                options.SerializerSettings.Converters.Add(new IsoDateTimeConverter { DateTimeFormat = "MM/dd/yyyy HH:mm:ss" });
+                options.SerializerSettings.Converters.Add(new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy HH:mm:ss" });
             }
          );
             services.AddHttpContextAccessor();

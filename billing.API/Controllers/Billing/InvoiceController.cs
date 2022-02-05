@@ -128,12 +128,12 @@ namespace billing.API.Controllers.Billing
         /// Gets product sale report based on date.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetProductSaleReport")]
+        [HttpPost("GetProductSaleReport")]
         [ProducesResponseType(typeof(ProductSaleReportDTO), 200)]
-        public async Task<IActionResult> GetproductSale(DateTime from, DateTime to)
+        public async Task<IActionResult> GetproductSale(ProductSaleFilter filter)
         {
             _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetproductSale), nameof(InvoiceController));
-            return Ok(await _service.GetProductSale(from,to));
+            return Ok(await _service.GetProductSale(filter.From, filter.To));
         }
         #endregion
     }
