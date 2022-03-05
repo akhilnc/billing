@@ -62,6 +62,7 @@ namespace billing.Invoice.Billing.Invoice
                         return new Envelope<int>(false,0, CommonMessages.SOMETHING_WRONG);
                     }
                 }
+                mappedInput.InvoiceDate = DateTime.Now;
                 mappedInput.CustomerId = mappedInput.Customer.Id;
                 mappedInput.Customer = null;
                 mappedInput.CreatedBy = _user.UserGuid;
