@@ -16,5 +16,7 @@ namespace billing.Service.Masters.Service
         Task<Envelope> Delete(string uId);
         Task<Envelope> CheckDuplication(DuplicateValidation input);
         Task<IEnumerable<ServiceDropdownDTO>> GetServiceDropdown();
+        bool IsProductExits(string uId);
+
     }
 }

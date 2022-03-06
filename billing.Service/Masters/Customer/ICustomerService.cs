@@ -2,9 +2,7 @@
 using billing.Data.DTOs.Masters;
 using billing.Data.Generics;
 using billing.Data.Generics.General;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace billing.Service.Masters.Customer
@@ -18,5 +16,6 @@ namespace billing.Service.Masters.Customer
         Task<Envelope> Delete(string uId);
         Task<Envelope> CheckDuplication(DuplicateValidation input);
         Task<IEnumerable<CustomerDropdownDTO>> GetCustomerDropdown();
+        bool IsCoustomerExits(string uId);
     }
 }

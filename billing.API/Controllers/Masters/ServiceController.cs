@@ -102,6 +102,10 @@ namespace billing.API.Controllers.Masters
         public async Task<IActionResult> Delete(string uId)
         {
             _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(Delete), nameof(UserController));
+            if (_service.IsProductExits(uId))
+            {
+                return Ok(new Envelope(false, ApplicationConstants.ProductIsalreadyInuse));
+            }
             return Ok(await _service.Delete(uId));
         }
         /// <summary>

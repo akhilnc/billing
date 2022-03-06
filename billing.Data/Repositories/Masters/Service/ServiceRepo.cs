@@ -53,6 +53,19 @@ namespace billing.Data.Repositories.Masters.Service
         }
 
         /// <summary>
+        /// Determines whether [is coustomer exits] [the specified uid].
+        /// </summary>
+        /// <param name="uid">The uid.</param>
+        /// <returns></returns>
+        public bool IsProductExits(string uid)
+        {
+            var productId = _appContext.MstService.FirstOrDefault(x => x.UId == uid);
+            return _appContext.InvoiceItem
+              .Any(u => u.ServiceId == productId.Id);
+        }
+
+
+        /// <summary>
         /// Gets the user by identifier.
         /// </summary>
         /// <param name="uid">Gets service by uid</param>

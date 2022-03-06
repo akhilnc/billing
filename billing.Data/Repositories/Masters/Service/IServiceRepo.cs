@@ -13,5 +13,7 @@ namespace billing.Data.Repositories.Masters.Service
         Task<bool> CheckDuplication(DuplicateValidation input);
         Task<MstService> GetServiceByUId(string uid);
         Task<IEnumerable<ServiceDropdownDTO>> GetServiceDropdown();
+        bool IsProductExits(string uid);
+
     }
 }

@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace billing.Service.Masters.Service
 {
-    public class ServiceService:IServiceService
+    public class ServiceService : IServiceService
     {
         private readonly IMapper _mapper;
         private readonly IServiceRepo _repo;
@@ -25,7 +25,7 @@ namespace billing.Service.Masters.Service
         private readonly UserBase _user;
 
 
-        public ServiceService(IServiceRepo repo, ITokenUserClaims claims, IMapper mapper,IAppLogger logger)
+        public ServiceService(IServiceRepo repo, ITokenUserClaims claims, IMapper mapper, IAppLogger logger)
         {
             _user = claims.GetClaims();
             _mapper = mapper;
@@ -120,6 +120,11 @@ namespace billing.Service.Masters.Service
             {
                 return new Envelope(false, CommonMessages.SOMETHING_WRONG);
             }
+        }
+
+        public bool IsProductExits(string uId)
+        {
+            return _repo.IsProductExits(uId);
         }
         #endregion
 

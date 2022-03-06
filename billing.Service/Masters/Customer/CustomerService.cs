@@ -93,6 +93,7 @@ namespace billing.Service.Masters.Customer
         {
             try
             {
+               
                 var item = await _repo.GetCustomerByUId(uId);
                 _repo.Remove(item);
                 var count = await _repo.CommitAsync();
@@ -124,6 +125,11 @@ namespace billing.Service.Masters.Customer
             {
                 return new Envelope(false, CommonMessages.SOMETHING_WRONG);
             }
+        }
+
+        public bool IsCoustomerExits(string uId)
+        {
+            return  _repo.IsCoustomerExits(uId);
         }
 
 

@@ -52,6 +52,18 @@ namespace billing.Data.Repositories.Masters.Customer
             return result.Count == 0;
         }
 
+        /// <summary>
+        /// Determines whether [is coustomer exits] [the specified uid].
+        /// </summary>
+        /// <param name="uid">The uid.</param>
+        /// <returns></returns>
+        public bool IsCoustomerExits (string uid)
+        {
+            var customerId = _appContext.MstCustomer.FirstOrDefault(x => x.UId == uid);
+            return  _appContext.Invoice
+              .Any(u => u.CustomerId == customerId.Id);
+        }
+
 
         /// <summary>
         /// Gets the customer by u identifier.
