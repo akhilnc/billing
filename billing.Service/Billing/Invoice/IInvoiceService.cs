@@ -18,5 +18,6 @@ namespace billing.Service.Billing.Invoice
         Task<string> GetInvoiceNo();
         Task<IEnumerable<InvoiceDTO>> GetInvoices(int customerId);
         Task<IEnumerable<ProductSaleReportDTO>> GetProductSale(DateTime from, DateTime to);
+        Task<decimal> GetMonthlyServiceCharge(DateTime from, DateTime to);
     }
 }

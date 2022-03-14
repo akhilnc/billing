@@ -135,6 +135,31 @@ namespace billing.API.Controllers.Billing
             _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetproductSale), nameof(InvoiceController));
             return Ok(await _service.GetProductSale(filter.From, filter.To));
         }
+        /// <summary>
+        /// Gets mothly service charge.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("GetMonthlyServiceCharge")]
+        [ProducesResponseType(typeof(decimal), 200)]
+        public async Task<IActionResult> GetMonthlyServiceCharge(ProductSaleFilter filter)
+        {
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetMonthlyServiceCharge), nameof(InvoiceController));
+            return Ok(await _service.GetMonthlyServiceCharge(filter.From, filter.To));
+        }
+        /// <summary>
+        /// Gets mothly service charge.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetMonthlyServiceCharge")]
+        [ProducesResponseType(typeof(decimal), 200)]
+        public async Task<IActionResult> GetMonthlyServiceCharge()
+        {
+            _logger.LogTrace(ApplicationConstants.EnterLogAction, nameof(GetMonthlyServiceCharge), nameof(InvoiceController));
+            DateTime now = DateTime.Now;
+            var startDate = new DateTime(now.Year, now.Month, 1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+            return Ok(await _service.GetMonthlyServiceCharge(startDate, endDate));
+        }
         #endregion
     }
 }

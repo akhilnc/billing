@@ -156,5 +156,9 @@ namespace billing.Invoice.Billing.Invoice
         {
             return await _repo.GetProductSale(from,to);
         }
+        public async Task<decimal> GetMonthlyServiceCharge(DateTime from, DateTime to)
+        {
+            return await _repo.GetMonthlyServiceCharge(from, to);
+        }
     }
 }

@@ -51,7 +51,6 @@ namespace billing.API.Controllers.Dashboard
         /// <summary>
         /// Gets the by identifier.
         /// </summary>
-        /// <param name="uId">The u identifier.</param>
         /// <returns></returns>
         [HttpGet("GetRecentInvoices")]
         [ProducesResponseType(typeof(InvoiceListDTO), 200)]
