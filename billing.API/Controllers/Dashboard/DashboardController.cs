@@ -3,12 +3,8 @@ using billing.Data.DTOs.Billing.Invoice;
 using billing.Data.DTOs.Dashboard;
 using billing.Service.Dashboard;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace billing.API.Controllers.Dashboard

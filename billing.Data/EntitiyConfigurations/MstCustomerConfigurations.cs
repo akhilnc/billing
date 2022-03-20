@@ -14,6 +14,8 @@ namespace billing.Data.EntitiyConfigurations
             builder.Property(a => a.Name).HasMaxLength(300);
             builder.Property(a => a.UId).IsRequired();
             builder.Property(a => a.VehicleNumber).IsRequired();
+            builder.Property(a => a.VehicleType).IsRequired();
+            builder.Property(a => a.VehicleKm).IsRequired();
             builder.Property(a => a.PhoneNumber).IsRequired().HasMaxLength(12);
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();

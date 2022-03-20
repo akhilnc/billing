@@ -98,6 +98,19 @@ namespace billing.Invoice.Billing.Invoice
                         return new Envelope<int>(false, 0, CommonMessages.SOMETHING_WRONG);
                     }
                 }
+                else
+                {
+                    var customer = await _cusService.Update(input.Customer);
+                    if (customer.Success)
+                    {
+                        mappedInput.Customer.Id = customer.Data;
+                    }
+                    else
+                    {
+                        return new Envelope<int>(false, 0, CommonMessages.SOMETHING_WRONG);
+                    }
+                }
+         
                 foreach (var item in mappedInput.InvoiceItems)
                 {
                     item.InvoiceId = mappedInput.Id;

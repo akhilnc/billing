@@ -64,7 +64,7 @@ namespace billing.Service.Masters.Customer
                 return new Envelope<int>(false,0, CommonMessages.SOMETHING_WRONG);
             }
         }
-        public async Task<Envelope> Update(CustomerDTO input)
+        public async Task<Envelope<int>> Update(CustomerDTO input)
         {
             try
             {
@@ -74,12 +74,12 @@ namespace billing.Service.Masters.Customer
                 await _repo.UpdateAsync(mappedInput);
                 var count = await _repo.CommitAsync();
                 return count > 0
-                    ? new Envelope(true, DbMessages.UPDATED_SUCCESS)
-                    : new Envelope(false, CommonMessages.SOMETHING_WRONG);
+                    ? new Envelope<int>(true, mappedInput.Id,DbMessages.UPDATED_SUCCESS)
+                    : new Envelope<int>(false, 0,CommonMessages.SOMETHING_WRONG);
             }
             catch (Exception e)
             {
-                return new Envelope(false, CommonMessages.SOMETHING_WRONG);
+                return new Envelope<int>(false, 0,CommonMessages.SOMETHING_WRONG);
             }
         }
 

@@ -349,10 +349,19 @@ namespace billing.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("u_id");
 
+                    b.Property<decimal>("VehicleKm")
+                        .HasColumnType("numeric")
+                        .HasColumnName("vehicle_km");
+
                     b.Property<string>("VehicleNumber")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("vehicle_number");
+
+                    b.Property<string>("VehicleType")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("vehicle_type");
 
                     b.HasKey("Id")
                         .HasName("pk_mst_customer");
@@ -550,13 +559,13 @@ namespace billing.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "test",
-                            CreatedOn = new DateTime(2022, 1, 30, 12, 5, 10, 270, DateTimeKind.Local).AddTicks(9791),
+                            CreatedOn = new DateTime(2022, 3, 19, 13, 39, 36, 60, DateTimeKind.Local).AddTicks(3535),
                             IsActive = true,
                             ModifiedBy = "asda",
-                            ModifiedOn = new DateTime(2022, 1, 30, 12, 5, 10, 271, DateTimeKind.Local).AddTicks(7727),
+                            ModifiedOn = new DateTime(2022, 3, 19, 13, 39, 36, 61, DateTimeKind.Local).AddTicks(3581),
                             Name = "admin",
                             ShortName = "Ad",
-                            UId = "17fcb90a-3b9f-4a68-a963-77f484b0f904"
+                            UId = "c6902963-bcac-41e5-b77d-a4463b59e683"
                         });
                 });
 
