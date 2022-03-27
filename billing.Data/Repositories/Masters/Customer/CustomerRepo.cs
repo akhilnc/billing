@@ -3,10 +3,8 @@ using billing.Data.Generics.General;
 using billing.Data.Models;
 using billing.Data.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace billing.Data.Repositories.Masters.Customer
@@ -33,7 +31,9 @@ namespace billing.Data.Repositories.Masters.Customer
             {
                 Id = x.Id,
                 Name=x.Name,
-                VehicleNumber=x.VehicleNumber
+                VehicleNumber=x.VehicleNumber,
+                VehicleType = x.VehicleType,
+                VehicleKm = x.VehicleKm
 
             }).ToListAsync();
         }
@@ -75,6 +75,13 @@ namespace billing.Data.Repositories.Masters.Customer
             return await _appContext.MstCustomer
                 .SingleOrDefaultAsync(u => u.UId == uid);
         }
+
+        public async Task<MstCustomer> GetCustomerById(int id)
+        {
+            return await _appContext.MstCustomer
+                .SingleOrDefaultAsync(u => u.Id == id);
+        }
+
 
         #endregion
     }

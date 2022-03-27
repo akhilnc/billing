@@ -11,6 +11,7 @@ namespace billing.Data.Repositories.Masters.Customer
     {
         Task<bool> CheckDuplication(DuplicateValidation input);
         Task<MstCustomer> GetCustomerByUId(string uid);
+        Task<MstCustomer> GetCustomerById(int id);
         Task<IEnumerable<CustomerDropdownDTO>> GetCustomerDropdown();
         bool IsCoustomerExits(string uid);
 

@@ -11,6 +11,7 @@ namespace billing.Service.Masters.Customer
     {
         Task<IEnumerable<CustomerDTO>> GetAll();
         Task<CustomerDTO> GetById(string uId);
+        Task<CustomerDTO> GetByIdCustom(int id);
         Task<Envelope<int>> Save(CustomerDTO input);
         Task<Envelope<int>> Update(CustomerDTO input);
         Task<Envelope> Delete(string uId);

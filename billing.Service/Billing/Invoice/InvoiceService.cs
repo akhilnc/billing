@@ -62,6 +62,21 @@ namespace billing.Invoice.Billing.Invoice
                         return new Envelope<int>(false,0, CommonMessages.SOMETHING_WRONG);
                     }
                 }
+                else
+                {
+                    var existingItems = await _cusService.GetByIdCustom(input.Customer.Id);
+                    input.Customer.UId = existingItems.UId;
+                    input.Customer.PhoneNumber = existingItems.PhoneNumber;
+                    var customer = await _cusService.Update(input.Customer);
+                    if (customer.Success)
+                    {
+                        mappedInput.Customer.Id = customer.Data;
+                    }
+                    else
+                    {
+                        return new Envelope<int>(false, 0, CommonMessages.SOMETHING_WRONG);
+                    }
+                }
                 mappedInput.InvoiceDate = DateTime.Now;
                 mappedInput.CustomerId = mappedInput.Customer.Id;
                 mappedInput.Customer = null;

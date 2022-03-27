@@ -43,6 +43,11 @@ namespace billing.Service.Masters.Customer
             return _mapper.Map<MstCustomer, CustomerDTO>(item);
         }
 
+        public async Task<CustomerDTO> GetByIdCustom(int id)
+        {
+            var item = await _repo.GetCustomerById(id);
+            return _mapper.Map<MstCustomer, CustomerDTO>(item);
+        }
         public async Task<Envelope<int>> Save(CustomerDTO input)
         {
             try
