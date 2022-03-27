@@ -78,7 +78,7 @@ namespace billing.Data.Repositories.Masters.Customer
 
         public async Task<MstCustomer> GetCustomerById(int id)
         {
-            return await _appContext.MstCustomer
+            return await _appContext.MstCustomer.AsNoTracking()
                 .SingleOrDefaultAsync(u => u.Id == id);
         }
 
