@@ -11,7 +11,7 @@ namespace billing.Data.Models
         public long PhoneNumber { get; set; }
         public string VehicleNumber { get; set; }
         public string VehicleType { get; set; }
-        public decimal VehicleKm { get; set; }
+        public decimal? VehicleKm { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }

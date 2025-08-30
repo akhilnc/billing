@@ -33,7 +33,7 @@ namespace billing.Data.Repositories.Masters.Customer
                 Name=x.Name,
                 VehicleNumber=x.VehicleNumber,
                 VehicleType = x.VehicleType,
-                VehicleKm = x.VehicleKm
+                VehicleKm = x.VehicleKm.Value
 
             }).ToListAsync();
         }

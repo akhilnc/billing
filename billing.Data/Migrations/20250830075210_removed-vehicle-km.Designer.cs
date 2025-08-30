@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using billing.Data.DbContexts;
@@ -9,9 +10,10 @@ using billing.Data.DbContexts;
 namespace billing.Data.Migrations
 {
     [DbContext(typeof(BillingAppContext))]
-    partial class BillingAppContextModelSnapshot : ModelSnapshot
+    [Migration("20250830075210_removed-vehicle-km")]
+    partial class removedvehiclekm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -349,7 +351,7 @@ namespace billing.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("u_id");
 
-                    b.Property<decimal?>("VehicleKm")
+                    b.Property<decimal>("VehicleKm")
                         .HasColumnType("numeric")
                         .HasColumnName("vehicle_km");
 
@@ -559,13 +561,13 @@ namespace billing.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "test",
-                            CreatedOn = new DateTime(2025, 8, 30, 13, 24, 43, 19, DateTimeKind.Local).AddTicks(5254),
+                            CreatedOn = new DateTime(2025, 8, 30, 13, 22, 9, 829, DateTimeKind.Local).AddTicks(1642),
                             IsActive = true,
                             ModifiedBy = "asda",
-                            ModifiedOn = new DateTime(2025, 8, 30, 13, 24, 43, 21, DateTimeKind.Local).AddTicks(3199),
+                            ModifiedOn = new DateTime(2025, 8, 30, 13, 22, 9, 830, DateTimeKind.Local).AddTicks(4918),
                             Name = "admin",
                             ShortName = "Ad",
-                            UId = "fbaeb68b-082b-4ba2-847b-456a971dc0e9"
+                            UId = "0db084dc-9b3c-4c8f-b33f-08004ade988a"
                         });
                 });
 
