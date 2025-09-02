@@ -41,7 +41,7 @@ namespace billing.API.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("GenerateNewToken")]
-        public async Task<IActionResult> Login(string refreshToken)
+        public async Task<IActionResult> GenerateNewToken(string refreshToken)
         {
             return Ok(null);
         }
